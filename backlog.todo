@@ -1,0 +1,41 @@
+TODO:
+    ☐ [UserController] Change to a controller that displays the user info, if the user is not sessioner, redirect to login.
+    ☐ [UserController.logout()] Redirect to the page that he was in.
+    ☐ Redirect the user where they were trying to access (when accesin without login).
+    ☐ Replace .css files into directories.
+    ☐ Set the layouts for templates.
+    ☐ Back to home page in login and admin (validate).
+    ☐ [UserController] Sign-up User.
+    ☐ [SeedService.seedComputers()] Pass computers to
+
+
+DO NOT KNOW:
+    ☐ Encrypt the user passwords.
+    ☐ State of the Tickets.
+    ☐ Hardware types of components (Videocard, RAM, processor, etc...).
+    ☐ [LoggedInterceptor.before()] Get the error message from i18n file.
+    ☐ Pass user without password attr.
+    ☐ Edit user profile image.
+    ☐ [UserController.profile] Getting the user as ArrayList.
+    ☐ Restrict other access type URLs (/classroom). Maybe adding contrains on UrlMapping.
+
+
+DOUBTS:
+    ☐ Get the message() from a class that is not a controller for i18n message.
+
+
+IDEAS:
+    ☐ Sort classroooms or computers by a specific field.
+
+
+FUTURE:
+    ☐ 404 and 500 error pages (web_templates/miminium-master-admin-panel).
+
+
+NOTES:
+    Sign-up user method:
+        def user = new User(dni: "44690254N", username: "asier", password: "asier", email: "asigonlo@gmail.com", name: "Asier", surname: "Gonzalez")
+        user.save()
+
+    Get session locale:
+        ${session.'org.springframework.web.servlet.i18n.SessionLocaleResolver.LOCALE'}
