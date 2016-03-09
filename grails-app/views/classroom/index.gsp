@@ -54,7 +54,7 @@
                                         <a href="#" class="list-group-item">Porta ac consectetur ac</a>
                                         <a href="#" class="list-group-item">Vestibulum at eros</a>
                                     </div>
-                                    <p><a href="<g:createLink controller='classroom' action='view' />/6" class="btn btn-success" role="button">View class</a></p>
+                                    <p><a href="<g:createLink controller='classroom' action='view' />/${ classroom.number }" class="btn btn-success" role="button">View class</a></p>
                                 </div>
                             </div>
                         </div>

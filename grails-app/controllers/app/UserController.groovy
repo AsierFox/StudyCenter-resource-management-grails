@@ -12,7 +12,7 @@ class UserController {
     def searchService
 
     static defaultAction  = 'login'
-    static allowedMethods = [authenticate: 'POST', logout: 'POST', search: 'POST']
+    static allowedMethods = [authenticate: 'POST', logout: 'POST', getAllUsers: 'POST', search: 'POST']
 
     def index() {
         if ( session.user ) {
@@ -67,11 +67,19 @@ class UserController {
     }
 
     /**
-     * Displays all users of the application.
+     * Displays all users view of the application.
      */
     def allUsers() {
-        request.users = User.findAll()
         render(view: userViewDir + 'allUsers')
+    }
+
+    /**
+     * Returns all users in a JSON.
+     */
+    def getAllUsers() {
+        render(contentType: 'text/json') {
+            users = User.findAll()
+        }
     }
 
     /**

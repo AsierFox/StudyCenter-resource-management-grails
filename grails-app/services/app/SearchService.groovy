@@ -7,7 +7,7 @@ class SearchService {
 
     def searchUsersByUsername(username) {
         def users = User.findAllByUsernameLike('%' + username + '%')
-        return users ? users[0] : users
+        return users
     }
 
 }

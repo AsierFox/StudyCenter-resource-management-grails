@@ -20,9 +20,6 @@ class ClassroomController {
         }
 
         request.computers = computerService.getComputersClassroom(params.id)
-        if ( !request.computers ) {
-            redirect(action: defaultAction)
-        }
 
         render(view: classroomViewDir + 'view')
     }

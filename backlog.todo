@@ -6,7 +6,6 @@ TODO:
     ☐ Set the layouts for templates.
     ☐ Back to home page in login and admin (validate).
     ☐ [UserController] Sign-up User.
-    ☐ [SeedService.seedComputers()] Pass computers to
 
 
 DO NOT KNOW:
@@ -33,9 +32,5 @@ FUTURE:
 
 
 NOTES:
-    Sign-up user method:
-        def user = new User(dni: "44690254N", username: "asier", password: "asier", email: "asigonlo@gmail.com", name: "Asier", surname: "Gonzalez")
-        user.save()
-
     Get session locale:
         ${session.'org.springframework.web.servlet.i18n.SessionLocaleResolver.LOCALE'}

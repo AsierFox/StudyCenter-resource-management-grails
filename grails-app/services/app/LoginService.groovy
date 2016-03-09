@@ -8,4 +8,5 @@ class LoginService {
     def authenticateUser(data) {
         return User.findAllByUsernameAndPassword(data.username, data.password)
     }
+
 }

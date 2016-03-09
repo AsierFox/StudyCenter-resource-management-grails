@@ -34,34 +34,41 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Computers of Classroom ${ computers.first().classroom.number }</h1>
+                    <h1 class="page-header">Computers of Classroom ${ params.id }</h1>
                 </div>
 
                 <div class="row">
 
-                    <g:each in="${ computers }" var="computer">
+                    <g:if test="${ !computers }">
+                        <h4 class="error-msg">There are no computers in this class.</h4>
+                    </g:if>
+                    <g:else>
 
-                        <div class="col-md-3">
-                            <div class="thumbnail">
-                                <i class="fa fa-desktop card-icon"></i>
-                                <div class="caption">
-                                    <h3 class="text-center">Computer</h3><h4 class="text-center">${ computer.ipAddress }</h4>
-                                    <div class="list-group">
+                        <g:each in="${ computers }" var="computer">
 
-                                        <a href="#" class="list-group-item">
-                                            Operating system <i class="fa fa-${ computer.operatingSystem.icon }"></i>
-                                        </a>
-                                        <a href="#" class="list-group-item">RAM ${ computer.ram } GB</a>
-                                        <a href="#" class="list-group-item">Storage ${ computer.storage } GB</a>
-                                        <a href="#" class="list-group-item">File system ${ computer.fileSystem.name }</a>
+                            <div class="col-md-3">
+                                <div class="thumbnail">
+                                    <i class="fa fa-desktop card-icon"></i>
+                                    <div class="caption">
+                                        <h3 class="text-center">Computer</h3><h4 class="text-center">${ computer.ipAddress }</h4>
+                                        <div class="list-group">
+
+                                            <a href="#" class="list-group-item">
+                                                Operating system <i class="fa fa-${ computer.operatingSystem.icon }"></i>
+                                            </a>
+                                            <a href="#" class="list-group-item">RAM ${ computer.ram } GB</a>
+                                            <a href="#" class="list-group-item">Storage ${ computer.storage } GB</a>
+                                            <a href="#" class="list-group-item">File system ${ computer.fileSystem.name }</a>
+                                        </div>
+                                        <p><a href="#" class="btn btn-primary" role="button">Install request</a></p>
+                                        <p><a href="#" class="btn btn-warning" role="button">Notify issue</a></p>
                                     </div>
-                                    <p><a href="#" class="btn btn-primary" role="button">Install request</a></p>
-                                    <p><a href="#" class="btn btn-warning" role="button">Notify issue</a></p>
                                 </div>
                             </div>
-                        </div>
 
-                    </g:each>
+                        </g:each>
+
+                    </g:else>
 
                 </div>
 

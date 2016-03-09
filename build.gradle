@@ -76,6 +76,7 @@ dependencies {
     // My dependencies
     runtime "mysql:mysql-connector-java:5.1.16"
     compile "org.grails.plugins:jasypt-encryption:2.0.1"
+    //runtime "javafaker:com.github.javafaker:0.7"
 }
 
 task wrapper(type: Wrapper) {

@@ -43,37 +43,39 @@
                                             <input ng-model="username" type="search" class="form-control input-sm" placeholder="Username" aria-controls="dataTables-example">
                                             <button ng-click="searchUserByUsername()" type="submit" class="btn btn-primary">Search <i class="fa fa-search"></i></button>
                                         </div>
+                                        <h4 id="flash-search-error" hidden class="error-msg">Not users found.</h4>
                                     </div>
                                 </div>
+                                <div class="page-header" style="margin-top:5px"></div>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" role="grid">
+                                        <table id="users-table" class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" role="grid">
                                             <thead>
                                                 <tr role="row">
-                                                    <th class="sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">DNI</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Name</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Surname</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 147px;">Username</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">E-mail</th>
+                                                    <th class="sorting" ng-click="sortType = 'dni'; sortOrder = !sortOrder">DNI</th>
+                                                    <th class="sorting" ng-click="sortType = 'name'; sortOrder = !sortOrder">Name</th>
+                                                    <th class="sorting" ng-click="sortType = 'surname'; sortOrder = !sortOrder">Surname</th>
+                                                    <th class="sorting" ng-click="sortType = 'username'; sortOrder = !sortOrder">Username</th>
+                                                    <th class="sorting" ng-click="sortType = 'email'; sortOrder = !sortOrder">E-mail</th>
+                                                    <th class="sorting" ng-click="sortType = 'class'; sortOrder = !sortOrder">User type</th>
                                                 </tr>
                                             </thead>
-                                            <tbody><!-- ng-repeat="user in users" -->
-                                                <g:each in="${ users }" var="user">
-                                                    <tr role="row">
-                                                        <td>${ user.dni }</td>
-                                                        <td>${ user.name }</td>
-                                                        <td>${ user.surname }</td>
-                                                        <td>${ user.username }</td>
-                                                        <td>${ user.email }</td>
-                                                    </tr>
-                                                </g:each>
+                                            <tbody>
+                                                <tr ng-repeat="user in users | orderBy:sortType:sortOrder" role="row">
+                                                    <td>{{ user.dni }}</td>
+                                                    <td>{{ user.name }}</td>
+                                                    <td>{{ user.surname }}</td>
+                                                    <td>{{ user.username }}</td>
+                                                    <td>{{ user.email }}</td>
+                                                    <td>{{ user.class }}</td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <div class="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">Showing 1 to 10 of ${ users.size } entries</div>
+                                        <div class="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">Showing 1 to 10 of 0 entries</div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
@@ -105,35 +107,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <asset:javascript src="metisMenu.js" />
     <asset:javascript src="sb-admin-2.js" />
-
-    <script>
-        var searchUserModule = angular.module('searchUserModule', []);
-
-        searchUserModule.controller('searchController', function($scope, $http) {
-            $scope.users = [];
-
-            $scope.searchUserByUsername = function() {
-                if ( !$scope.username ) {
-                    return;
-                }
-
-                $http({
-                    url: "/user/search/" + $scope.username,
-                    method: "POST"
-                })
-                .success(function(data, status) {
-                    if ( !data ) {
-                        return;
-                    }
-                    console.log(data.users);
-                    //$scope.users.push(data);
-                })
-                .error(function(data, status, headers, config) {
-                    $scope.status = status;
-                });
-            };
-        });
-    </script>
-
+    <asset:javascript src="all-users-table-search-angular" />
 </body>
 </html>
