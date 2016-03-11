@@ -8,6 +8,14 @@
         <asset:stylesheet src="metis-menu.css"/>
         <asset:stylesheet src="sb-admin-2.css"/>
          <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+
+         <style>
+
+            #users-table thead th {
+                cursor: pointer;
+            }
+
+         </style>
     </head>
 <body>
 
@@ -40,8 +48,10 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div id="dataTables-example_filter" class="dataTables_filter">
-                                            <input ng-model="username" type="search" class="form-control input-sm" placeholder="Username" aria-controls="dataTables-example">
-                                            <button ng-click="searchUserByUsername()" type="submit" class="btn btn-primary">Search <i class="fa fa-search"></i></button>
+                                            <div class="input-group">
+                                                <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+                                                <input ng-model="username" ng-change="searchUserByUsername()" type="search" class="form-control input-sm" placeholder="Username" aria-controls="dataTables-example">
+                                            </div>
                                         </div>
                                         <h4 id="flash-search-error" hidden class="error-msg">Not users found.</h4>
                                     </div>
@@ -75,7 +85,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <div class="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">Showing 1 to 10 of 0 entries</div>
+                                        <div class="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">Showing 1 to 10 of {{ users.length }} entries</div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">

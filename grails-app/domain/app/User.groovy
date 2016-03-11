@@ -12,6 +12,8 @@ class User {
     String surname
     String avatar
 
+    Computer computer
+
     static constraints = {
         dni(unique: true, blank: false)
         username(unique: true, blank: false)

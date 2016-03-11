@@ -3,9 +3,11 @@ TODO:
     ☐ [UserController.logout()] Redirect to the page that he was in.
     ☐ Redirect the user where they were trying to access (when accesin without login).
     ☐ Replace .css files into directories.
-    ☐ Set the layouts for templates.
     ☐ Back to home page in login and admin (validate).
     ☐ [UserController] Sign-up User.
+    ☐ Set the layouts for templates.
+    ☐ Pagination of allUsers
+    ☐ Set computer (Technical, Administrator) to nullable: true.
 
 
 DO NOT KNOW:
@@ -13,9 +15,8 @@ DO NOT KNOW:
     ☐ State of the Tickets.
     ☐ Hardware types of components (Videocard, RAM, processor, etc...).
     ☐ [LoggedInterceptor.before()] Get the error message from i18n file.
-    ☐ Pass user without password attr.
+    ☐ Pass user return from database without password attr.
     ☐ Edit user profile image.
-    ☐ [UserController.profile] Getting the user as ArrayList.
     ☐ Restrict other access type URLs (/classroom). Maybe adding contrains on UrlMapping.
 
 
@@ -29,6 +30,7 @@ IDEAS:
 
 FUTURE:
     ☐ 404 and 500 error pages (web_templates/miminium-master-admin-panel).
+    ☐ Delete test view.
 
 
 NOTES:

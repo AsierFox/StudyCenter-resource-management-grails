@@ -8,10 +8,10 @@ class Computer {
 
     FileSystem fileSystem
     OperatingSystem operatingSystem
-    Classroom classroom
 
-    Collection users
-    static hasMany = [users: User]
+    Collection components
+
+    static hasMany = [components: Component]
 
     static constraints = {
         ipAddress(unique: true)

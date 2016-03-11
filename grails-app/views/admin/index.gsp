@@ -7,6 +7,17 @@
 
         <asset:stylesheet src="metis-menu.css"/>
         <asset:stylesheet src="sb-admin-2.css"/>
+
+        <style>
+
+            .card-icon {
+                font-size: 100px;
+                margin-top: 15px;
+                text-align: center;
+                width: 100%;
+            }
+
+        </style>
     </head>
 <body>
 
@@ -14,16 +25,13 @@
 
         <g:applyLayout name="navAdmin" />
 
-        <!-- page-wrapper -->
         <div id="page-wrapper">
-
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">Dashboard</h1>
                 </div>
-                <!-- /.col-lg-12 -->
             </div>
-            <!-- /.row -->
+
             <div class="row">
                 <div class="col-lg-3 col-md-6">
                     <div class="panel panel-primary">
@@ -114,12 +122,33 @@
                     </div>
                 </div>
             </div>
-            <!-- /.row -->
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header">Computer assignment</h3>
+                </div>
+                <!-- Computer Card -->
+                <div class="col-md-3 computer-card">
+                    <div class="thumbnail">
+                        <i class="fa fa-desktop card-icon"></i>
+                        <div class="caption">
+                            <h3 class="text-center">Computer</h3><h4 class="text-center">${ userComputer.ipAddress }</h4>
+                            <div class="list-group">
+
+                                <a class="list-group-item">
+                                    <b>Operating system</b> <i class="fa fa-${ userComputer.operatingSystem.icon }"></i>
+                                </a>
+                                <a class="list-group-item"><b>RAM</b> ${ userComputer.ram } GB</a>
+                                <a class="list-group-item"><b>Storage</b> ${ userComputer.storage } GB</a>
+                                <a class="list-group-item"><b>File system</b> ${ userComputer.fileSystem.name }</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
-        <!-- /#page-wrapper -->
     </div>
-    <!-- /#wrapper -->
 
     <!-- Script -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>

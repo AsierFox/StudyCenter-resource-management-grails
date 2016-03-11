@@ -4,8 +4,9 @@ class Requirement {
 
     Integer ram
     Float storage
-    FileSystem fileSystem
     String operatingSystem
+
+    FileSystem fileSystem
 
     static constraints = {
         ram(min: 2)

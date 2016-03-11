@@ -1,6 +1,6 @@
 package app
 
-class RequestInstall extends Ticket {
+class State {
 
     static constraints = {
     }

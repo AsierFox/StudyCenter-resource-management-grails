@@ -2,15 +2,21 @@ package app
 
 class StudyCenter {
 
+    String nif
     String name
+    String address
     String website
 
-    TicketHistory ticketHistory
-    Map classrooms // Key: number
+    Stock stock
 
-    static hasMany = [classrooms: Classroom]
+    Collection classrooms
+    Collection providers
+
+    static hasMany = [classrooms: Classroom, providers: Provider]
 
     static constraints = {
+        nif(unique: true)
         name(unique: true)
     }
+
 }

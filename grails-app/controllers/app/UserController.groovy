@@ -6,9 +6,8 @@ package app
  */
 class UserController {
 
-    final String userViewDir = '/user/'
-
     def loginService
+    def signUpService
     def searchService
 
     static defaultAction  = 'login'
@@ -31,7 +30,7 @@ class UserController {
             redirect(action: 'index')
         }
         else {
-            render(view: userViewDir + 'login')
+            render(view: 'login')
         }
     }
 
@@ -55,7 +54,7 @@ class UserController {
      * Sign ups the User.
      */
     def signUp() {
-        render(view: userViewDir + 'signUp')
+        render(view: 'signUp')
     }
 
     /**
@@ -63,14 +62,14 @@ class UserController {
      */
     def profile() {
         request.user = session.user ? session.user[0] : null
-        render(view: userViewDir + 'profile')
+        render(view: 'profile')
     }
 
     /**
      * Displays all users view of the application.
      */
     def allUsers() {
-        render(view: userViewDir + 'allUsers')
+        render(view: 'allUsers')
     }
 
     /**
@@ -98,11 +97,6 @@ class UserController {
         session.user = null
         session.invalidate()
         redirect(action: defaultAction)
-    }
-
-    def session() {
-        request.data = session
-        render(view: '/test/test')
     }
 
 }

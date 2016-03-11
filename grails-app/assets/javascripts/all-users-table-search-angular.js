@@ -10,6 +10,7 @@ searchUserModule.controller('searchController', function($scope, $http) {
     var userSearchUrl  = '/user/search/';
 
     $scope.users = [];
+    $scope.username = '';
     // Default sort by dni user attr.
     $scope.sortType = 'dni';
     $scope.sortOrder = false;
@@ -42,10 +43,12 @@ searchUserModule.controller('searchController', function($scope, $http) {
     fillWithAllUsers();
 
     $scope.searchUserByUsername = function() {
+        var flashError = $('#flash-search-error');
         var usersTable = $('#users-table tbody *');
         usersTable.remove();
 
         if ( !$scope.username || typeof $scope.username === 'undefined' ) {
+            flashError.hide();
             fillWithAllUsers();
             return;
         }
@@ -57,7 +60,6 @@ searchUserModule.controller('searchController', function($scope, $http) {
                 if ( !data ) {
                     return;
                 }
-                var flashError = $('#flash-search-error');
                 var users = data.users;
 
                 if ( !users.length ) {

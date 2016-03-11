@@ -1,4 +1,11 @@
 
+<g:set var="user" value="${ session.user[0] }" />
+
+<g:set var="isUser" value="${ user instanceof app.User }" />
+<g:set var="isTechnical" value="${ user instanceof app.Technical }" />
+<g:set var="isAdmin" value="${ user instanceof app.Administrator }" />
+
+
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -7,7 +14,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html">SB Admin v2.0</a>
+        <a class="navbar-brand" href="<g:createLink controller='admin' />">Resource manager</a>
     </div>
     <!-- /.navbar-header -->
 
