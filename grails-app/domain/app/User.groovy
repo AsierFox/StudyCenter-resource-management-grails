@@ -20,10 +20,27 @@ class User {
         password(password: true, blank: false)
         email(unique: true, email: true, blank: false)
         avatar(defaultValue: 'default-avatar.png')
+        computer(nullable: true)
     }
 
     static mapping = {
         //password(type: GormEncryptedStringType)
+    }
+
+    def beforeValidate() {
+        username = username?.trim()
+    }
+
+    def isUser() {
+        "User".equals(getClass().getSimpleName())
+    }
+
+    def isTechnical() {
+        "Technical".equals(getClass().getSimpleName())
+    }
+
+    def isAdministrator() {
+        "Administrator".equals(getClass().getSimpleName())
     }
 
 }

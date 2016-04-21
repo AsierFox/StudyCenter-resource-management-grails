@@ -1,5 +1,5 @@
 
-<g:set var="user" value="${ session.user[0] }" />
+<g:set var="user" value="${ session.user }" />
 
 <g:set var="isUser" value="${ user instanceof app.User }" />
 <g:set var="isTechnical" value="${ user instanceof app.Technical }" />
@@ -146,6 +146,9 @@
                 </li>
                 <li>
                     <a href="<g:createLink controller='user' action='allUsers' />"><i class="fa fa-edit fa-fw"></i> All users</a>
+                </li>
+                <li>
+                    <a href="<g:createLink controller='provider' />"><i class="fa fa-table fa-fw"></i> Providers</a>
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>

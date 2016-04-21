@@ -7,6 +7,8 @@ class LoggedInterceptor {
             .excludes(controller: 'home')
             .excludes(controller: 'user', action: 'login')
             .excludes(controller: 'user', action: 'signUp')
+            .excludes(controller: 'classroom', action: 'getAllClassrooms')
+            .excludes(controller: 'classroom', action: 'getClassroomComputers')
     }
 
     boolean before() {

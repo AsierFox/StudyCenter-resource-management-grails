@@ -3,7 +3,9 @@ package app
 class Classroom {
 
     Integer number
+    Integer floor
     String description
+    Integer maxCapacity
 
     Collection computers
 
@@ -11,6 +13,15 @@ class Classroom {
 
     static constraints = {
         number(unique: true)
+        computers(nullable: true)
+    }
+
+    def remainingSpace() {
+        //maxCapacity - computers.length
+    }
+
+    def isFull() {
+        //computers.length >= maxCapacity
     }
 
 }

@@ -11,9 +11,18 @@
         <button type="submit">Logout</button>
     </g:form>
     <h1>Test</h1>
-    <p>${data}</p>
-    <br>
-    <p>${data2}</p>
+
+    <g:each in="${ data }" var="comp" >
+
+        <p>${ comp.ipAddress }</p>
+
+        <g:each in="${ comp.components }" var="compo" >
+
+            <p>${ compo }</p>
+
+        </g:each>
+
+    </g:each>
 
 </body>
 </html>

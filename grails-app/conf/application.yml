@@ -71,6 +71,7 @@ grails:
                 scriptlets: html
                 taglib: none
                 staticparts: none
+
 ---
 hibernate:
     cache:
@@ -93,16 +94,16 @@ dataSource:
 environments:
     development:
         dataSource: &developmentDataSource
-            dbCreate: create
+            dbCreate: create-drop
             url: jdbc:mysql://localhost:3306/testgrails
     test:
         dataSource:
             <<: *developmentDataSource
-            dbCreate: update
+            dbCreate: create
     production:
         dataSource:
             <<: *developmentDataSource
-            dbCreate: update
+            dbCreate: create
             properties:
                 jmxEnabled: true
                 initialSize: 5

@@ -7,7 +7,9 @@ class AdminController {
     def computerService
 
     def index() {
-        request.userComputer = computerService.getUserComputer(session.user[0])
+        if (session.user.isUser()) {
+            request.userComputer = computerService.getUserComputer(session.user)
+        }
         render(view: defaultAction)
     }
 

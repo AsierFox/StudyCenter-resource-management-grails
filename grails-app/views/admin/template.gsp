@@ -31,8 +31,8 @@
     <!-- /#wrapper -->
 
     <!-- Script -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <asset:javascript src="jquery.min.js" />
+    <asset:javascript src="bootstrap.min.js" />
     <asset:javascript src="metisMenu.js" />
     <asset:javascript src="sb-admin-2.js" />
 </body>

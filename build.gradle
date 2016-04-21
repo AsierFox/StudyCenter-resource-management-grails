@@ -75,9 +75,9 @@ dependencies {
 
     // My dependencies
     runtime "mysql:mysql-connector-java:5.1.16"
-    compile "org.grails.plugins:jasypt-encryption:2.0.1"
-    //compile "org.grails.plugins:joda-time:1.5"
-    //runtime "javafaker:com.github.javafaker:0.7"
+    compile 'org.grails:grails-datastore-rest-client:5.0.0.RC2'
+    //compile "org.grails.plugins:mongodb:5.0.0"
+    //compile "org.grails.plugins:jasypt-encryption:2.0.1"
 }
 
 task wrapper(type: Wrapper) {

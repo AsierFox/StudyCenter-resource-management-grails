@@ -11,6 +11,8 @@ class ClassroomController {
 
     static defaultAction = 'index'
 
+    static allowedMethods = [getAllClassrooms: 'POST', getClassroomComputers: 'POST']
+
     /**
      * Shows all the classrooms of the study center.
      */
@@ -35,6 +37,18 @@ class ClassroomController {
         }
 
         render(view: 'view')
+    }
+
+    def getAllClassrooms() {
+        render(contentType: 'text/json') {
+            classroomService.allClassrooms()
+        }
+    }
+
+    def getClassroomComputers() {
+        render(contentType: 'text/json') {
+            classroomService.getClassroomComputers(params.id)
+        }
     }
 
 }

@@ -1,5 +1,7 @@
 package app
 
+import src.groovy.faker.Faker
+
 class HomeController {
 
     static boolean isSeed = false

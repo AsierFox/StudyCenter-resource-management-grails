@@ -55,7 +55,6 @@ searchUserModule.controller('searchController', function($scope, $http) {
 
         $http
             .post(userSearchUrl + $scope.username)
-
             .success(function(data, status) {
                 if ( !data ) {
                     return;

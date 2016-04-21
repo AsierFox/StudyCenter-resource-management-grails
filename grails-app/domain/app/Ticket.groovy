@@ -2,9 +2,19 @@ package app
 
 class Ticket {
 
-    String title
-    String content
-    Date sendDate
+    String subject
+    String description
+    Date date
+    Status status
+
+    Computer computer
+    Technical technical
+
+    static enum Status {
+        PENDING,
+        SOLVED,
+        CANCELED
+    }
 
     static constraints = {
     }

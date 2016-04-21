@@ -15,7 +15,7 @@ class UserController {
 
     def index() {
         if ( session.user ) {
-            redirect(action: 'profile')
+            redirect(controller: 'admin')
         }
         else {
             redirect(action: 'login')
@@ -41,7 +41,7 @@ class UserController {
         def user = loginService.authenticateUser(params)
 
         if ( user ) {
-            session.user = user
+            session.user = user[0]
             redirect(action: 'index')
         }
         else {
@@ -54,14 +54,19 @@ class UserController {
      * Sign ups the User.
      */
     def signUp() {
-        render(view: 'signUp')
+        if ( session.user ) {
+            redirect(action: 'index')
+        }
+        else {
+            render(view: 'signUp')
+        }
     }
 
     /**
      * Shows the user information.
      */
     def profile() {
-        request.user = session.user ? session.user[0] : null
+        request.user = session.user ? session.user : null
         render(view: 'profile')
     }
 

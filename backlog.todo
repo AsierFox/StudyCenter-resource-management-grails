@@ -1,38 +1,122 @@
+NEXT (DOING ALL WITH User, then controll roles):
+    ☐ Install Request of software (Software List and requirements)
+    ☐ MongoDB Providers
+    ☐ View computer
+    ☐ Edit computer components (Check at remove the Hadware that not affects to Software)
+    ☐ Remove Classroom option for administrator (PCs to Stock)
+    ☐ Ticket management for Technicals
+
+
 TODO:
     ☐ [UserController] Change to a controller that displays the user info, if the user is not sessioner, redirect to login.
-    ☐ [UserController.logout()] Redirect to the page that he was in.
     ☐ Redirect the user where they were trying to access (when accesin without login).
     ☐ Replace .css files into directories.
     ☐ Back to home page in login and admin (validate).
+    ☐ Make the trim() for the form-data-helper.js [validString()]
     ☐ [UserController] Sign-up User.
     ☐ Set the layouts for templates.
     ☐ Pagination of allUsers
+    ☐ Sign-up redirection when user session is ON.
+    ☐ [Computer.getComputerByIpAddress()] computer.attach() is neccesary (?) [view-computer.js]
     ☐ Set computer (Technical, Administrator) to nullable: true.
+    ☐ From sign-up make a breadcrum for returning to the login or home.
+    ☐ maxCapacity y number of computers of the classroom.
+    ☐ [ClassroomController.view()] Carry the classroom object.
+    ☐ Controll the capacity of the classroom respect the number of the computers.
+    ☐ MongoDB List show
+    ☐ Admins, Technicals without computers
+    ☐ Botones al mismo nivel
+    ☐ Change '/admin' URL group name to '/app'
+    ☐ Fix Session to Single Thread
+    ☐ Fix computer card for 'md' screens
+    ☐ Technical and administrator have computer :\, change it to nullable
+    ☐ [NotifyIssueService.sendIssue()] Check for SAME topic SAME Computer
+    ☐ Get computer classroom
+    ☐ Controll that User must have a Computer
+    ☐ Controll if there are not Technicals
+    ☐ Icon in login when trying to access to page without login
+    ☐ Filter for sections of only Administrator and Techinical
+    ☐ Check all script imports
+
+
+LATER:
+    ☐ Modify user rol
+    ☐ Delete user (if technical, pass all its Tickets to the MainClass)
 
 
 DO NOT KNOW:
     ☐ Encrypt the user passwords.
-    ☐ State of the Tickets.
-    ☐ Hardware types of components (Videocard, RAM, processor, etc...).
-    ☐ [LoggedInterceptor.before()] Get the error message from i18n file.
-    ☐ Pass user return from database without password attr.
-    ☐ Edit user profile image.
-    ☐ Restrict other access type URLs (/classroom). Maybe adding contrains on UrlMapping.
-
-
-DOUBTS:
-    ☐ Get the message() from a class that is not a controller for i18n message.
+    ☐ Hardware types of components (Videocard, RAM, processor, etc...)
+    ☐ [LoggedInterceptor.before()] Get the error message from i18n file
+    ☐ Pass user return from database without password attr
+    ☐ Edit user profile image
+    ☐ Restrict other access type URLs (/classroom). Maybe adding contrains on UrlMapping
 
 
 IDEAS:
     ☐ Sort classroooms or computers by a specific field.
+    ☐ Drags and drop for user avatar image modification.
+    ☐ Términos de uso.
+    ☐ Ver equipo más detalladamente en "ver equipo", con su hardware y software.
+    ☐ Resolution on GraphicCard
 
 
 FUTURE:
     ☐ 404 and 500 error pages (web_templates/miminium-master-admin-panel).
     ☐ Delete test view.
+    ☐ Change layout 'defaultMain' <title>.
+    ☐ Delete Grails index view
+
+
+Computer:
+    ☐ Software
+        ☐ JRE Plugin
+            ☐ SpringIDE
+            ☐ Eclipse
+
+
+IMPROVEMENTS:
+    ☐ Uniformity of the components.
+    ☐ Errors, warnings, and successes go with the same message and style.
+    ☐ From admin to home.
 
 
 NOTES:
     Get session locale:
         ${session.'org.springframework.web.servlet.i18n.SessionLocaleResolver.LOCALE'}
+
+
+JSON Providers:
+{
+  "providers": [
+    {
+      "name": "pcomponents",
+      "title": "PC Components",
+      "logo": "default-img.png",
+      "description": "Shop of computer components",
+      "offers": [
+        {
+          "name": "NVIDIA GTX 680",
+          "brand": "nvidia",
+          "description": "Modern graphic card for hard gamming.",
+          "specs": {
+            "over clock": 6800,
+            "resolution": "1270x720"
+          },
+          "price": 280.72,
+          "category": ["computer-components", "graphic-card"]
+        },
+        {
+          "name": "G. Skill RipJaws",
+          "brand": "g-skill",
+          "description": "Modern graphic card for hard gamming.",
+          "specs": {
+            "capacity": 3
+          },
+          "price": 36.20,
+          "category": ["computer-components", "ram"]
+        }
+      ]
+    }
+  ]
+}

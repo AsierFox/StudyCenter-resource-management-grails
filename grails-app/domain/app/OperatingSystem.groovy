@@ -1,8 +1,7 @@
 package app
 
-class OperatingSystem {
+class OperatingSystem extends Software {
 
-    String name
     String icon
 
     static constraints = {

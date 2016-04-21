@@ -1,10 +1,11 @@
 package app
 
-class FileSystem {
+class FileSystem extends Software {
 
-    String name
+    String type
 
     static constraints = {
+        type(unique: true)
     }
 
 }
