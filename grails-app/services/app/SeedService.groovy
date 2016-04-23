@@ -2,12 +2,10 @@ package app
 
 import grails.transaction.Transactional
 
-// TODO: Change some save() of false to --> showErrors
-
 @Transactional
 class SeedService {
 
-    Boolean showErrors = true
+    boolean showErrors = true
 
     Map computers
     Map departaments
@@ -20,9 +18,8 @@ class SeedService {
     def seed() {
         components = [:]
 
-        seedHardwareComponents()
-
         seedSoftwareApps()
+        seedHardwareComponents()
         seedSoftwareFileSystems()
         seedSoftwareOperatingSystems()
 
@@ -43,7 +40,75 @@ class SeedService {
     }
 
     def seedSoftwareApps() {
-        //components
+        Requirements requirements = new Requirements(
+            storage: 5,
+            memoryCapacity: 1,
+            fileSystemType: 'ntfs',
+            operatingSystem: 'MAC',
+            software: []
+        );
+        requirements.save()
+        components.put("JRE",
+            new Software(
+                name: 'JRE',
+                requirements: requirements)
+        );
+
+        requirements = new Requirements(
+            storage: 15,
+            memoryCapacity: 2,
+            fileSystemType: 'ntfs',
+            operatingSystem: 'MAC',
+            software: ['JRE']
+        );
+        requirements.save()
+        components.put("Eclipse",
+            new Software(
+                name: 'Eclipse',
+                requirements: requirements)
+        );
+
+        requirements = new Requirements(
+            storage: 45,
+            memoryCapacity: 8,
+            fileSystemType: 'ntfs',
+            operatingSystem: 'MAC',
+            software: []
+        );
+        requirements.save()
+        components.put("Battlefield 4",
+            new Software(
+                name: 'Battlefield 4',
+                requirements: requirements)
+        );
+
+        requirements = new Requirements(
+            storage: 4,
+            memoryCapacity: 2,
+            fileSystemType: 'ntfs',
+            operatingSystem: 'MAC',
+            software: []
+        );
+        requirements.save()
+        components.put("DirectX",
+            new Software(
+                name: 'DirectX',
+                requirements: requirements)
+        );
+
+        requirements = new Requirements(
+            storage: 100,
+            memoryCapacity: 5,
+            fileSystemType: 'ntfs',
+            operatingSystem: 'MAC',
+            software: ['DirectX']
+        );
+        requirements.save()
+        components.put("Starcraft 2",
+            new Software(
+                name: 'Starcraft 2',
+                requirements: requirements)
+        );
     }
 
     def seedClassrooms() {
@@ -64,6 +129,7 @@ class SeedService {
                 maxCapacity: 10,
                 description: "This another classroom without computers")
         );
+
         classrooms.each {
             it.save(flush: true, failOnError: showErrors)
         }
@@ -71,6 +137,7 @@ class SeedService {
 
     def seedDepartaments() {
         departaments = [:]
+
         departaments.put('networking', new Departament(name: 'Networking'))
         departaments.put('programming', new Departament(name: 'Programming'))
 
@@ -80,43 +147,98 @@ class SeedService {
     }
 
     def seedSoftwareOperatingSystems() {
-        components.put("58931",
+        Requirements requirements = new Requirements(
+            storage: 5,
+            memoryCapacity: 1,
+            fileSystemType: 'ntfs',
+            operatingSystem: 'MAC',
+            software: []
+        );
+        requirements.save()
+        components.put("MACLion",
             new OperatingSystem(
-                ref: '58931',
                 name: 'MAC',
+                requirements: requirements,
+                distro: 'Lion',
                 icon: 'fa fa-apple')
         );
-        components.put("009844",
+
+        requirements = new Requirements(
+            storage: 5,
+            memoryCapacity: 1,
+            fileSystemType: 'ntfs',
+            operatingSystem: 'MAC',
+            software: []
+        );
+        requirements.save()
+        components.put("LinuxUbuntu",
             new OperatingSystem(
-                ref: '009844',
                 name: 'Linux',
+                requirements: requirements,
+                distro: 'Ubuntu',
                 icon: 'fa fa-linux')
         );
-        components.put("47392",
+
+        requirements = new Requirements(
+            storage: 5,
+            memoryCapacity: 1,
+            fileSystemType: 'ntfs',
+            operatingSystem: 'MAC',
+            software: []
+        );
+        requirements.save()
+        components.put("Windows10",
             new OperatingSystem(
-                ref: '47392',
                 name: 'Windows',
+                requirements: requirements,
+                distro: '10',
                 icon: 'fa fa-windows')
         );
     }
 
     def seedSoftwareFileSystems() {
-        components.put("03649",
+        Requirements requirements = new Requirements(
+            storage: 5,
+            memoryCapacity: 1,
+            fileSystemType: 'ntfs',
+            operatingSystem: 'MAC',
+            software: []
+        );
+        requirements.save()
+        components.put("NTFS",
             new FileSystem(
-                ref: '03649',
                 name: 'NTFS',
+                requirements: requirements,
                 type: 'ntfs')
         );
-        components.put("99783",
+
+        requirements = new Requirements(
+            storage: 5,
+            memoryCapacity: 1,
+            fileSystemType: 'ntfs',
+            operatingSystem: 'MAC',
+            software: []
+        );
+        requirements.save()
+        components.put("FAT",
             new FileSystem(
-                ref: '99783',
                 name: 'FAT',
+                requirements: requirements,
                 type: 'fat')
         );
-        components.put("14423",
+
+        requirements = new Requirements(
+            storage: 5,
+            memoryCapacity: 1,
+            fileSystemType: 'ntfs',
+            operatingSystem: 'MAC',
+            software: []
+        );
+        requirements.save()
+        components.put("B-Tree",
             new FileSystem(
-                ref: '14423',
                 name: 'B-Tree',
+                requirements: requirements,
                 type: 'b-tree')
         );
     }
@@ -149,17 +271,18 @@ class SeedService {
         computers = [:]
         Collection tempComponents = []
 
-        tempComponents.add(components.get('58931')) // OS
-        tempComponents.add(components.get('03649')) // FS
+        tempComponents.add(components.get('JRE')) // Eclipse
 
-        tempComponents.add(components.get('11233'))
+        tempComponents.add(components.get('11233')) // RAM
         tempComponents.add(components.get('11211')) // Hard drive
-        tempComponents.add(components.get('11441'))
+        tempComponents.add(components.get('11441')) // Graphic Card
 
         computers.put("172.16.16.200",
             new Computer(
                 ipAddress: "172.16.16.200",
                 name: "PC 32",
+                operatingSystem: components.get('MACLion'),
+                fileSystem: components.get('NTFS'),
                 components: tempComponents)
         );
         /*
@@ -179,6 +302,7 @@ class SeedService {
                 fileSystem: fileSystems.get('ntfs'))
         );
         */
+
         computers.each { k, v ->
             v.save(flush: true, failOnError: showErrors)
         }
@@ -193,16 +317,6 @@ class SeedService {
                 password: "asier",
                 email: "asigonlo@gmail.com",
                 name: "Asier", surname: "Gonzalez",
-                avatar: "default-avatar.png",
-                computer: computers.get('172.16.16.200'))
-        );
-        users.add(
-            new User(
-                dni: "42640224Y",
-                username: "sky",
-                password: "asier",
-                email: "asigonlo@hotmail.com",
-                name: "Sky", surname: "Fox",
                 avatar: "default-avatar.png",
                 computer: computers.get('172.16.16.200'))
         );

@@ -3,8 +3,14 @@ package app
 class ComputerController {
 
     def computerService
+    def softwareService
 
-    static allowedMethods = [getComputerByIpAddress: 'POST', getComputerNameByIpAddress: 'POST']
+    static allowedMethods = [
+        getComputerByIpAddress: 'POST',
+        getComputerNameByIpAddress: 'POST',
+        getAllSoftware: 'POST',
+        getAllSoftwareWithinOSFS: 'POST'
+    ]
 
     def getComputerByIpAddress() {
         render(contentType: 'text/json') {
@@ -18,4 +24,15 @@ class ComputerController {
         }
     }
 
+    def getAllSoftware() {
+        render(contentType: 'text/json') {
+            softwareService.getAllSoftware()
+        }
+    }
+
+    def getAllSoftwareWithinOSFS() {
+        render(contentType: 'text/json') {
+            softwareService.getAllSoftwareWithinOSFS()
+        }
+    }
 }

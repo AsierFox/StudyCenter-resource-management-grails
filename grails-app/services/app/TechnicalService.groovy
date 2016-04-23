@@ -11,7 +11,7 @@ class TechnicalService {
     def getLessTicket() {
         Technical.createCriteria()
             .get {
-                eq 'class', 'app.Technical'
+                eq 'class', Technical.class
                 min 'numberTickets'
                 maxResults 1
             }

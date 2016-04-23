@@ -1,10 +1,13 @@
 NEXT (DOING ALL WITH User, then controll roles):
-    ☐ Install Request of software (Software List and requirements)
     ☐ MongoDB Providers
-    ☐ View computer
+    ☐ View computer modal
     ☐ Edit computer components (Check at remove the Hadware that not affects to Software)
     ☐ Remove Classroom option for administrator (PCs to Stock)
     ☐ Ticket management for Technicals
+    ☐ Stock
+    ☐ Info about the Issue type in alert (at send)
+    ☐ Mapping name sort for computers [Put on classroom, due to the List of PCs is there]
+    ☐ [UserController] Sign-up User.
 
 
 TODO:
@@ -12,12 +15,9 @@ TODO:
     ☐ Redirect the user where they were trying to access (when accesin without login).
     ☐ Replace .css files into directories.
     ☐ Back to home page in login and admin (validate).
-    ☐ Make the trim() for the form-data-helper.js [validString()]
-    ☐ [UserController] Sign-up User.
-    ☐ Set the layouts for templates.
+    ☐ Controll no more than 1 OS or FileSystem
     ☐ Pagination of allUsers
     ☐ Sign-up redirection when user session is ON.
-    ☐ [Computer.getComputerByIpAddress()] computer.attach() is neccesary (?) [view-computer.js]
     ☐ Set computer (Technical, Administrator) to nullable: true.
     ☐ From sign-up make a breadcrum for returning to the login or home.
     ☐ maxCapacity y number of computers of the classroom.
@@ -26,6 +26,7 @@ TODO:
     ☐ MongoDB List show
     ☐ Admins, Technicals without computers
     ☐ Botones al mismo nivel
+    ☐ Check all the use of cases in Install Software Request
     ☐ Change '/admin' URL group name to '/app'
     ☐ Fix Session to Single Thread
     ☐ Fix computer card for 'md' screens
@@ -33,10 +34,9 @@ TODO:
     ☐ [NotifyIssueService.sendIssue()] Check for SAME topic SAME Computer
     ☐ Get computer classroom
     ☐ Controll that User must have a Computer
-    ☐ Controll if there are not Technicals
+    ☐ Controll if there are not Technicals at removing one
     ☐ Icon in login when trying to access to page without login
-    ☐ Filter for sections of only Administrator and Techinical
-    ☐ Check all script imports
+    ☐ Filter for sections of only Administrator and Techinical roles
 
 
 LATER:
@@ -50,15 +50,11 @@ DO NOT KNOW:
     ☐ [LoggedInterceptor.before()] Get the error message from i18n file
     ☐ Pass user return from database without password attr
     ☐ Edit user profile image
-    ☐ Restrict other access type URLs (/classroom). Maybe adding contrains on UrlMapping
 
 
 IDEAS:
-    ☐ Sort classroooms or computers by a specific field.
     ☐ Drags and drop for user avatar image modification.
     ☐ Términos de uso.
-    ☐ Ver equipo más detalladamente en "ver equipo", con su hardware y software.
-    ☐ Resolution on GraphicCard
 
 
 FUTURE:
@@ -66,19 +62,6 @@ FUTURE:
     ☐ Delete test view.
     ☐ Change layout 'defaultMain' <title>.
     ☐ Delete Grails index view
-
-
-Computer:
-    ☐ Software
-        ☐ JRE Plugin
-            ☐ SpringIDE
-            ☐ Eclipse
-
-
-IMPROVEMENTS:
-    ☐ Uniformity of the components.
-    ☐ Errors, warnings, and successes go with the same message and style.
-    ☐ From admin to home.
 
 
 NOTES:

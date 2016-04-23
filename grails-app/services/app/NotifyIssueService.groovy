@@ -21,14 +21,17 @@ class NotifyIssueService {
 
         IssueType issueType = getIssueById(data.get('issue[topic]'))
 
-        // Check if there is already a ticket for that in the computer
-        Issue repeatedIssue = Issue.findByComputerAndType(computer, issueType)
+        // Check if there is already a pending ticket for that type in the computer
+        Issue repeatedIssue = Issue.findByComputerAndTypeAndStatus(computer, issueType, PENDING)
         if (repeatedIssue) {
-            throw new NotifyIssueException("There is already a issue notification of type " + repeatedIssue.type.topic  + " for this computer")
+            throw new NotifyIssueException('There is already a issue notification of type ' + repeatedIssue.type.topic  + ' for this computer')
         }
 
         // Get technical with the less amount of Tickets
         Technical technical = technicalService.getLessTicket()
+        if (!technical) {
+            throw new NotifyIssueException('Could not find any technical')
+        }
 
         // Create the Issue
         Issue issue = new Issue(
@@ -43,7 +46,7 @@ class NotifyIssueService {
         );
 
         if (!issue.save(flush: true)) {
-            throw new NotifyIssueException("The issue notification could not be sent")
+            throw new NotifyIssueException('The issue notification could not be sent')
         }
 
         // Increment the number of Tickets of the chose Technical

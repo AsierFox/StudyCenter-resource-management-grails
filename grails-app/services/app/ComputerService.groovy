@@ -7,6 +7,10 @@ import src.groovy.exceptions.ClassroomNotFoundException
 @Transactional
 class ComputerService {
 
+    def getComputerClassroom(Computer computer) {
+        Classroom.executeQuery("SELECT class.id FROM Classroom class JOIN class.computers AS c WHERE c = ?", [computer])
+    }
+
     def getUserComputer(user) {
         user.attach()
         user.computer.attach()

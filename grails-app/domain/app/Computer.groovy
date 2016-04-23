@@ -8,6 +8,9 @@ class Computer {
     String ipAddress
     String name
 
+    OperatingSystem operatingSystem
+    FileSystem fileSystem
+
     Collection components
 
     static hasMany = [components: Component]
@@ -50,7 +53,22 @@ class Computer {
         totalCapacity
     }
 
-    def getActualStorage() {}
+    /**
+     * Returns the used storage.
+     */
+     def getUsedStorage() {
+        Collection allSoftware = getSoftware()
+        float usedStorage = 0
+
+        if (allSoftware) {
+            allSoftware.each {
+                if (it.requirements) {
+                    usedStorage += it.requirements.storage
+                }
+            }
+        }
+        usedStorage
+     }
 
     /**
      * Returns the total storage capacity in Gigabytes.
@@ -67,6 +85,11 @@ class Computer {
         totalStorage
     }
 
-    def getRemainingStorage() {}
+    /**
+     * Returns all the available storage in the Computer.
+     */
+    def getAvailableStorage() {
+        return getTotalStorage() - getUsedStorage()
+    }
 
 }

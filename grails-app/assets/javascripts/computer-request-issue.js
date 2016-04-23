@@ -6,7 +6,31 @@
 var sendData = {};
 
 /**
- * Gets the computer name from IP address, returning in a JSON.
+ * Fills the all the available software to the select.
+ */
+var fillAllSoftwareSelect = function(selectId) {
+    $.ajax({
+        url: "/computer/getAllSoftwareWithinOSFS",
+        method: "POST",
+        dataType: "json",
+        success: function(data) {
+            var softwareSelect = $('#' + selectId);
+            var size = data.length;
+
+            for (var i = 0; i < size; i++) {
+                var software = data[i];
+
+                softwareSelect
+                     .append($("<option></option>")
+                        .attr("value", software.id)
+                        .text(software.name));
+            }
+        }
+    });
+};
+
+/**
+ * Returns the computer name from IP address as a JSON object.
  */
 var getComputerNameByIpAddress = function (ipAddress) {
     var name = '';
@@ -23,6 +47,9 @@ var getComputerNameByIpAddress = function (ipAddress) {
     return name;
 };
 
+/**
+ *
+ */
 var loadIssueTypeSelect = function(selId) {
     var req = $.ajax({
         url: "/notifyIssue/getAllIssueTypes",
@@ -45,14 +72,64 @@ var loadIssueTypeSelect = function(selId) {
     });
 };
 
+/**
+ *
+ */
 var processInstallRequestForm = function() {
+    var subject     = document.getElementById('form-request-subject');
+    var description = document.getElementById('form-request-description');
+    var software    = document.getElementById('all-software-select');
+
+    // Validate data
+    if (!formDataHelper.validString(subject.value) ||
+            !formDataHelper.validString(description.value) ||
+                !formDataHelper.validString(software.value))
+    {
+        notifyInstallRequestError('You need to fill all the data!');
+        return false;
+    }
+
+    sendData.request = {
+        "subject": subject.value,
+        "description": description.value,
+        "software": software.value
+    };
+
+    swal({
+        title: 'Are you sure to send this Software Request?',
+        text: 'Software Request',
+        type: 'info',
+        showCancelButton: true,
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true
+    }, function() {
+        var req = $.post({
+            url: "/installRequest/sofwareInstallRequest",
+            data: { "request": sendData.request, "computer": sendData.computer },
+            dataType: "json"
+        });
+        req.done(function(data) {
+            if (!data.success) {
+                notifyInstallRequestError(data.flashError);
+                return;
+            }
+            sweetAlert('Software Request sended', 'The requested Software installation has been sended', 'success');
+            $('.modal').modal('hide');
+        });
+        req.fail(function(err) {
+            notifyInstallRequestError(err);
+        });
+    });
 
     return false; // Prevent GET submit
 };
 
+/**
+ *
+ */
 var installRequest = function(computerIpAddress) {
-    var modalId = 'installRequestModal';
-    var modal = $('#' + modalId);
+    var modalId      = 'installRequestModal';
+    var modal        = $('#' + modalId);
     var computerName = getComputerNameByIpAddress(computerIpAddress);
 
     document.getElementById(modalId).innerHTML = '<div class="modal-dialog"> \
@@ -65,56 +142,21 @@ var installRequest = function(computerIpAddress) {
             <form onsubmit="return processInstallRequestForm()" action="" method="POST"> \
                 <div class="modal-body"> \
                     <div class="row"> \
-                        <div class="col-md-12"> \
+                        <div class="col-md-6"> \
                             <h4>Subject:</h4> \
-                            <input type="text" class="form-control" placeholder="Subject" /> \
+                            <input id="form-request-subject" type="text" class="form-control" placeholder="Subject" /> \
+                        </div> \
+                        <div class="col-md-6"> \
+                            <h4>Request Software:</h4> \
+                            <select id="all-software-select" class="form-control"> \
+                                <option value="">Choose a Software</option> \
+                            </select> \
                         </div> \
                     </div> \
                     <div class="row"> \
                         <div class="col-md-12"> \
                             <h4>Install request description:</h4> \
-                            <textarea placeholder="Description" class="form-control"></textarea> \
-                        </div> \
-                    </div> \
-                    <div class="row"> \
-                        <div class="col-md-4"> \
-                            <h4>Requested Software:</h4> \
-                            <textarea  placeholder="Software request" class="form-control"></textarea> \
-                        </div> \
-                        <div class="col-md-8"> \
-                            <div class="row"> \
-                                <div class="col-md-4"> \
-                                    <h5>Min. RAM</h5> \
-                                    <input type="number" class="form-control" /> \
-                                </div> \
-                                <div class="col-md-4"> \
-                                    <h5>Min. Storage</h5> \
-                                    <input type="number" class="form-control" /> \
-                                </div> \
-                                <div class="col-md-4"> \
-                                    <h5>File system</h5> \
-                                    <select class="form-control"> \
-                                        <option>NTFS</option> \
-                                        <option>NTFS</option> \
-                                    </select> \
-                                </div> \
-                            </div> \
-                            <div class="row"> \
-                                <div class="col-md-4"> \
-                                    <h5>Operating System</h5> \
-                                    <select class="form-control"> \
-                                        <option>Windows</option> \
-                                        <option>Linux</option> \
-                                    </select> \
-                                </div> \
-                                <div class="col-md-8"> \
-                                    <h5>Software dependencies</h5> \
-                                    <select class="form-control" multiple> \
-                                        <option>JRE</option> \
-                                        <option>Nodejs</option> \
-                                    </select> \
-                                </div> \
-                            </div> \
+                            <textarea id="form-request-description" placeholder="Description" class="form-control"></textarea> \
                         </div> \
                     </div> \
                 </div> \
@@ -126,12 +168,25 @@ var installRequest = function(computerIpAddress) {
         </div>';
     modal.modal('show');
 
+    fillAllSoftwareSelect('all-software-select');
+
     sendData.computer = {
         "ipAddress": computerIpAddress,
         "name": computerName
     };
 };
 
+/**
+ *
+ */
+var notifyInstallRequestError = function(errorMsg) {
+    var msg = formDataHelper.validString(errorMsg) ? errorMsg : 'The requested software installation can not been sended';
+    sweetAlert('Error sending the Software request', msg, 'error');
+};
+
+/**
+ *
+ */
 var notifyIssueError = function(errorMsg) {
     var msg = formDataHelper.validString(errorMsg) ? errorMsg : 'The requested notify issue can not been sended';
     sweetAlert('Error notifying the issue', msg, 'error');
@@ -141,17 +196,17 @@ var notifyIssueError = function(errorMsg) {
  *
  */
 var processNotifyIsueForm = function() {
-
     var subject     = document.getElementById('form-issue-subject');
     var topic       = document.getElementById('form-select-issue-type');
     var description = document.getElementById('form-issue-description');
     var remarks     = document.getElementById('form-issue-remarks');
 
+    // Validate data
     if (!formDataHelper.validString(subject.value) ||
             !topic.options[topic.selectedIndex].value ||
                 !formDataHelper.validString(description.value) ||
-                    !formDataHelper.validString(remarks.value)
-    ) {
+                    !formDataHelper.validString(remarks.value))
+    {
         notifyIssueError('You need to fill all the data!');
         return false;
     }
@@ -171,7 +226,6 @@ var processNotifyIsueForm = function() {
         closeOnConfirm: false,
         showLoaderOnConfirm: true
     }, function() {
-
         var req = $.ajax({
             url: "/notifyIssue/notifyIssue",
             data: { "issue": sendData.issue, "computer": sendData.computer },
@@ -189,7 +243,6 @@ var processNotifyIsueForm = function() {
         req.fail(function(err) {
             notifyIssueError(err);
         });
-
     });
 
     return false; // Prevent GET submit
@@ -210,13 +263,11 @@ var notifyIssue = function(computerIpAddress) {
         <form onsubmit="return processNotifyIsueForm()" action="" method="POST"> \
             <div class="modal-body"> \
                 <div class="row"> \
-                    <div class="col-md-12"> \
+                    <div class="col-md-6"> \
                         <h4>Subject:</h4> \
                         <input id="form-issue-subject" type="text" class="form-control" placeholder="Subject" /> \
                     </div> \
-                </div> \
-                <div class="row"> \
-                    <div class="col-md-12"> \
+                    <div class="col-md-6"> \
                         <h4>Issue related with:</h4> \
                         <select id="form-select-issue-type" class="form-control"> \
                             <option value="">Choose the related issue</option> \
@@ -224,13 +275,11 @@ var notifyIssue = function(computerIpAddress) {
                     </div> \
                 </div> \
                 <div class="row"> \
-                    <div class="col-md-12"> \
+                    <div class="col-md-6"> \
                         <h4>Issue description:</h4> \
                         <textarea id="form-issue-description" placeholder="Description" class="form-control"></textarea> \
                     </div> \
-                </div> \
-                <div class="row"> \
-                    <div class="col-md-12"> \
+                    <div class="col-md-6"> \
                         <h4>Remarks:</h4> \
                         <textarea id="form-issue-remarks" placeholder="Remarks" class="form-control"></textarea> \
                     </div> \

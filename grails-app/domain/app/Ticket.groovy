@@ -17,5 +17,7 @@ class Ticket {
     }
 
     static constraints = {
+        computer(nullable: false)
+        technical(nullable: false)
     }
 }

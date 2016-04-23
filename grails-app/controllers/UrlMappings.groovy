@@ -12,6 +12,8 @@ class UrlMappings {
         group("/admin") {
             "/classroom/$action?/$id?(.$format)?"(controller: 'classroom')
             "/user/all-users"(controller: 'user', action: 'allUsers')
+            "/providers/$action?/$id?(.$format)?"(controller: 'provider')
+            "/tickets/$action?/$id?(.$format)?"(controller: 'ticket')
         }
 
         "404"(view: '/error/notFound')

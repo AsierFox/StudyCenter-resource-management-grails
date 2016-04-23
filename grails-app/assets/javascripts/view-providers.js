@@ -13,7 +13,6 @@
             $http
                 .post(getAllProvidersUrl)
                 .then(function(response) {
-                    console.log(response.data);
                     $scope.providers = response.data.providers;
                 });
         };

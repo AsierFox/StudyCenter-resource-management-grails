@@ -2,7 +2,7 @@ package app
 
 class InstallRequest extends Ticket {
 
-    String reqSoftware
+    Software reqSoftware
 
     static constraints = {
     }

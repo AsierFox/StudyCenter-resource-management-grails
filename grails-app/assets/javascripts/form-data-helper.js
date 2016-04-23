@@ -1,10 +1,15 @@
 
+/** trims the passed string */
+function trim(str) {
+    return str.replace(/^\s+|\s+$/gm,'');
+}
+
 var formDataHelper = {
     /**
      * Validates that the string is not empty or blank.
      */
      validString: function(str) {
-        return !str || this.trim(str) != '';
+        return trim(str);
      },
     /**
      * Validates an email address.
@@ -18,9 +23,5 @@ var formDataHelper = {
      */
     validPassword: function(password, repeatPassword) {
         return true;
-    },
-    /** trims the passed string */
-    trim: function(str) {
-        return str;
     }
 };

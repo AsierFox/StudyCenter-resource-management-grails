@@ -157,104 +157,100 @@
 
             <g:if test="${ session.user.isUser() }">
 
-            <div class="row">
+                <div class="row">
 
-                <h2>Get Classroom name</h2>
+                    <h2>Get Classroom name</h2>
 
-                <!-- computer_card -->
-                <div class="col-md-3 computer-card">
-                    <div class="thumbnail">
-                        <a onclick="viewComputer('${ userComputer.ipAddress }')" class="pull-left"><i class="fa fa-eye">OJO</i></a>
-                        <a href="#" class="pull-right"><i class="fa fa-pencil"></i></a>
-                        <i class="fa fa-desktop card-icon"></i>
-                        <div class="caption">
-                            <h4 class="text-center">Computer</h4><h3 class="text-center">${ userComputer.name }</h3>
-                            <div class="list-group">
-                                <a class="list-group-item">
-                                    <b>IP Address</b> ${ userComputer.ipAddress }
-                                </a>
-                                <ul class="nav nav-tabs nav-pills nav-justified">
-                                    <li class="active">
-                                        <a data-toggle="pill" href="#tab-hardware">Hardware</a>
-                                    </li>
-                                    <li>
-                                        <a data-toggle="pill" href="#tab-software">Software</a>
-                                    </li>
-                                </ul>
-                                <div class="tab-content">
-                                    <!-- Hardware tab -->
-                                    <div id="tab-hardware" class="tab-pane fade in active">
-                                        <g:each in="${ userComputer.getHardware() }" var="hardware" >
-                                            <!-- RAM -->
-                                            <g:if test="${ hardware instanceof app.Ram }">
-                                                <a class="list-group-item">
-                                                    <b>Ram</b> ${ hardware.name }, ${ hardware.capacity } GB
-                                                </a>
-                                            </g:if>
-                                            <g:elseif test="${ hardware instanceof app.GraphicCard }">
-                                            <!-- Storage -->
-                                                <a class="list-group-item">
-                                                    <b>Graphic card</b> ${ hardware.name }, ${ hardware.clockSpeed } MHz
-                                                </a>
-                                            </g:elseif>
-                                            <g:elseif test="${ hardware instanceof app.HardDrive }">
-                                            <!-- GraphicCard -->
-                                                <a class="list-group-item">
-                                                    <b>Hard Drive</b> ${ hardware.name }, ${ hardware.storage } GB
-                                                </a>
-                                            </g:elseif>
-                                            <g:else>
-                                                <a class="list-group-item">
-                                                    <b>${ hardware }</b> ${ hardware.name }
-                                                </a>
-                                            </g:else>
-                                        </g:each>
-                                    </div>
+                    <!-- computer_card -->
+                    <div class="col-md-3 computer-card">
+                        <div class="thumbnail">
+                            <a onclick="viewComputer('${ userComputer.ipAddress }')" class="pull-left"><i class="fa fa-eye">OJO</i></a>
+                            <a href="#" class="pull-right"><i class="fa fa-pencil"></i></a>
+                            <i class="fa fa-desktop card-icon"></i>
+                            <div class="caption">
+                                <h4 class="text-center">Computer</h4><h3 class="text-center">${ userComputer.name }</h3>
+                                <div class="list-group">
+                                    <a class="list-group-item">
+                                        <b>IP Address</b> ${ userComputer.ipAddress }
+                                    </a>
+                                    <ul class="nav nav-tabs nav-pills nav-justified">
+                                        <li class="active">
+                                            <a data-toggle="pill" href="#tab-hardware">Hardware</a>
+                                        </li>
+                                        <li>
+                                            <a data-toggle="pill" href="#tab-software">Software</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <!-- Hardware tab -->
+                                        <div id="tab-hardware" class="tab-pane fade in active">
+                                            <g:each in="${ userComputer.getHardware() }" var="hardware" >
+                                                <!-- RAM -->
+                                                <g:if test="${ hardware instanceof app.Ram }">
+                                                    <a class="list-group-item">
+                                                        <b>Ram</b> ${ hardware.name }, ${ hardware.capacity } GB
+                                                    </a>
+                                                </g:if>
+                                                <g:elseif test="${ hardware instanceof app.GraphicCard }">
+                                                <!-- Storage -->
+                                                    <a class="list-group-item">
+                                                        <b>Graphic card</b> ${ hardware.name }, ${ hardware.clockSpeed } MHz
+                                                    </a>
+                                                </g:elseif>
+                                                <g:elseif test="${ hardware instanceof app.HardDrive }">
+                                                <!-- GraphicCard -->
+                                                    <a class="list-group-item">
+                                                        <b>Hard Drive</b> ${ hardware.name }, ${ hardware.storage } GB
+                                                    </a>
+                                                </g:elseif>
+                                                <g:else>
+                                                    <a class="list-group-item">
+                                                        <b>${ hardware }</b> ${ hardware.name }
+                                                    </a>
+                                                </g:else>
+                                            </g:each>
+                                        </div>
 
-                                    <!-- Software tab -->
-                                    <div id="tab-software" class="tab-pane fade">
-                                        <g:each in="${ userComputer.getSoftware() }" var="software" >
-                                            <!-- RAM -->
-                                            <g:if test="${ software instanceof app.OperatingSystem }">
-                                                <a class="list-group-item">
-                                                    <b>Operating system</b> &nbsp;<i class="fa fa-${ software.icon }"></i>
-                                                </a>
-                                            </g:if>
-                                            <g:elseif test="${ software instanceof app.FileSystem }">
+                                        <!-- Software tab -->
+                                        <div id="tab-software" class="tab-pane fade">
+                                            <!-- Operating System -->
+                                            <a class="list-group-item">
+                                                <b>Operating system</b> &nbsp;<i class="fa fa-${ userComputer.operatingSystem.icon }"></i>
+                                            </a>
                                             <!-- FileSystem -->
+                                            <a class="list-group-item">
+                                                <b>File system</b> ${ userComputer.fileSystem.type }
+                                            </a>
+                                            <a class="list-group-item">
+                                                <center><b><u>Installed Software</u></b></center>
+                                            </a>
+                                            <g:each in="${ userComputer.getSoftware() }" var="software" >
                                                 <a class="list-group-item">
-                                                    <b>File system</b> ${ software.name }
+                                                    ${ software.name }
                                                 </a>
-                                            </g:elseif>
-                                            <g:else>
-                                                <a class="list-group-item">
-                                                    <b>a</b> ${ software.name }
-                                                </a>
-                                            </g:else>
-
-                                        </g:each>
+                                            </g:each>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <button onclick="installRequest('${ userComputer.ipAddress }');" class="btn btn-success" role="button">Install request</button>
-                                <button onclick="notifyIssue('${ userComputer.ipAddress }');" class="btn btn-warning" role="button">Notify issue</button>
+                                    <button onclick="installRequest('${ userComputer.ipAddress }');" class="btn btn-success" role="button">Install request</button>
+                                    <button onclick="notifyIssue('${ userComputer.ipAddress }');" class="btn btn-warning" role="button">Notify issue</button>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Action modals -->
+                    <!-- View Computer Modal -->
+                    <div id="viewComputerModal" class="modal fade" tabindex="-1" role="dialog"></div>
+                    <!-- Installation Request Modal -->
+                    <div id="installRequestModal" class="modal fade" tabindex="-1" role="dialog"></div>
+                    <!-- Notify Issue Modal -->
+                    <div id="notifyIssueModal" class="modal fade" tabindex="-1" role="dialog"></div>
+                    <!-- ! Action modals -->
+
+                    <!-- ! computer_card -->
+
                 </div>
-
-                <!-- Action modals -->
-                <!-- View Computer Modal -->
-                <div id="viewComputerModal" class="modal fade" tabindex="-1" role="dialog"></div>
-                <!-- Installation Request Modal -->
-                <div id="installRequestModal" class="modal fade" tabindex="-1" role="dialog"></div>
-                <!-- Notify Issue Modal -->
-                <div id="notifyIssueModal" class="modal fade" tabindex="-1" role="dialog"></div>
-                <!-- ! Action modals -->
-
-                <!-- ! computer_card -->
-
-            </div>
 
             </g:if>
             <!-- !User Computer -->
