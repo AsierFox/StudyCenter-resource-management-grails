@@ -9,12 +9,10 @@ class TechnicalService {
      * Gets the Technical with the less amount of Tickets.
      */
     def getLessTicket() {
-        Technical.createCriteria()
-            .get {
-                eq 'class', Technical.class
-                min 'numberTickets'
-                maxResults 1
-            }
+        Technical.where {
+            available == true
+        }
+        .find(sort: 'numberTickets', order: 'asc')
     }
 
     /**

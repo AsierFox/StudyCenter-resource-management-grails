@@ -11,9 +11,14 @@ class SoftwareService {
         Requirements newSoftwareRequeriments = newSoftware.requirements
         Collection computerSoftware = computer.getSoftware()
 
-        // Check if the computer has software
-        if (!computerSoftware) {
-            throw new SoftwareRequerimentException('The computer does not have any software installed')
+        // Check if the computer has Operating System
+        if (!computer.operatingSystem) {
+            throw new SoftwareRequerimentException('The computer does not have any Operating System')
+        }
+
+        // Check if the computer has File System
+        if (!computer.fileSystem) {
+            throw new SoftwareRequerimentException('The computer does not have any File System')
         }
 
         // Check File System
@@ -33,9 +38,11 @@ class SoftwareService {
                 throw new SoftwareRequerimentException('The computer has already installed this software')
             }
 
-            // Check Software dependencies
-            if (!newSoftwareRequeriments.software.contains(it.name)) {
-                throw new SoftwareRequerimentException('The computer require ' + newSoftwareRequeriments.software.join(', ') + ' software installed')
+            // Check Software dependencies if it has
+            if (!newSoftwareRequeriments.software?.empty) {
+                if (!newSoftwareRequeriments.software.contains(it.name)) {
+                    throw new SoftwareRequerimentException('The computer require ' + newSoftwareRequeriments.software.join(', ') + ' software installed')
+                }
             }
         }
 

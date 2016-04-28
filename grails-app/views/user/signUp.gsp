@@ -42,7 +42,15 @@
                 </div>
                 <div class="form-bottom">
 
-                    <form role="form" onsubmit="return validateForm()" action="" method="POST" class="registration-form">
+                    <g:form onsubmit="return validateForm()" method="POST" url="[action:'signUpUser', controller:'user']" class="registration-form" role="form">
+
+                        <g:if test="${ errorMsg }">
+                            <div class="alert alert-danger" role="alert">
+                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                <span class="sr-only">Error:</span>
+                                ${ errorMsg }
+                            </div>
+                        </g:if>
 
                         <div class="form-group">
                             <label class="sr-only" for="form-dni">DNI</label>
@@ -85,28 +93,30 @@
                         </div>
 
                         <div class="form-group">
-                            <select id="select-class" onchange="showClassroomComputers(this)" class="form-control">
-                                <option>Choose a classroom</option>
+                            <select id="select-class" name="form-classroom" onchange="showClassroomComputers(this)" class="form-control">
+                                <option value="">Choose a classroom</option>
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <select id="select-classroomComputer" onchange="selectUserComputer(this)" class="form-control">
-                                <option>Choose a computer</option>
+                            <select id="select-classroomComputer" name="form-computer" class="form-control">
+                                <option value="">Choose a computer</option>
                             </select>
                         </div>
 
                         <button type="submit" class="btn">Sign me up</button>
-                    </form>
+
+                    </g:form>
+
                 </div>
             </div>
 
         </div>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    <asset:javascript src="form-data-helper.js" />
-    <asset:javascript src="user-sign-up.js" />
+    <asset:javascript src="jquery.min.js" />
+    <asset:javascript src="bootstrap.min.js" />
+    <asset:javascript src="form-data-helper" />
+    <asset:javascript src="user-sign-up" />
 </body>
 </html>

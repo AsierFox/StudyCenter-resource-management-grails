@@ -75,8 +75,7 @@ dependencies {
 
     // My dependencies
     runtime "mysql:mysql-connector-java:5.1.16"
-    compile 'org.grails:grails-datastore-rest-client:5.0.0.RC2'
-    //compile "org.grails.plugins:mongodb:5.0.0"
+    compile "org.mongodb:mongodb-driver:3.2.2"
     //compile "org.grails.plugins:jasypt-encryption:2.0.1"
 }
 

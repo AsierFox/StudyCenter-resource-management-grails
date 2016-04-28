@@ -25,14 +25,17 @@ class ClassroomController {
      * Shows all the computers of a existing classroom.
      */
     def view() {
-        if ( !params.id ) {
+        def classroomNum = params.id
+
+        if ( !classroomNum ) {
             redirect(action: defaultAction)
         }
 
         try {
-            request.computers = classroomService.getClassroomComputers(params.id)
+            request.classroom = classroomService.getClassroomByNumber(classroomNum)
+            request.computers = classroomService.getClassroomComputers(classroomNum)
         }
-        catch (ClassroomNotFoundException classNotFound) {
+        catch (ClassroomNotFoundException | Exception classNotFound) {
             redirect(action: defaultAction)
         }
 

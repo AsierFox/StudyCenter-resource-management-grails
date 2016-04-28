@@ -10,9 +10,8 @@ class StudyCenter {
     Stock stock
 
     Collection classrooms
-    Collection providers
 
-    static hasMany = [classrooms: Classroom, providers: Provider]
+    static hasMany = [classrooms: Classroom]
 
     static constraints = {
         nif(unique: true)

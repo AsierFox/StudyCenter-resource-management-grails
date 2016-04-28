@@ -3,7 +3,7 @@
     <head>
         <meta name="layout" content="defaultMain">
 
-        <title>Admin panel</title>
+        <title>Dashboard</title>
 
         <asset:stylesheet src="metis-menu.css"/>
         <asset:stylesheet src="sb-admin-2.css"/>
@@ -45,6 +45,10 @@
                 resize: none;
                 height: 100px;
                 width: 100%;
+            }
+
+            ul li {
+                list-style: none;
             }
 
         </style>
@@ -161,11 +165,11 @@
 
                     <h2>Get Classroom name</h2>
 
-                    <!-- computer_card -->
+                    <!-- Computer Card -->
                     <div class="col-md-3 computer-card">
                         <div class="thumbnail">
-                            <a onclick="viewComputer('${ userComputer.ipAddress }')" class="pull-left"><i class="fa fa-eye">OJO</i></a>
-                            <a href="#" class="pull-right"><i class="fa fa-pencil"></i></a>
+                            <a onclick="viewComputer('${ userComputer.ipAddress }')" class="pull-left"><i class="fa fa-eye">EYE</i></a>
+
                             <i class="fa fa-desktop card-icon"></i>
                             <div class="caption">
                                 <h4 class="text-center">Computer</h4><h3 class="text-center">${ userComputer.name }</h3>
@@ -240,32 +244,30 @@
                     </div>
 
                     <!-- Action modals -->
-                    <!-- View Computer Modal -->
                     <div id="viewComputerModal" class="modal fade" tabindex="-1" role="dialog"></div>
-                    <!-- Installation Request Modal -->
                     <div id="installRequestModal" class="modal fade" tabindex="-1" role="dialog"></div>
-                    <!-- Notify Issue Modal -->
                     <div id="notifyIssueModal" class="modal fade" tabindex="-1" role="dialog"></div>
                     <!-- ! Action modals -->
 
-                    <!-- ! computer_card -->
+                    <!-- ! Computer Card -->
 
                 </div>
 
             </g:if>
-            <!-- !User Computer -->
+            <!-- ! User Computer -->
 
         </div>
     </div>
 
     <!-- Script -->
     <asset:javascript src="jquery.min.js" />
+    <asset:javascript src="jquery-ui.min.js" />
     <asset:javascript src="bootstrap.min.js" />
     <asset:javascript src="metisMenu.js" />
     <asset:javascript src="sb-admin-2.js" />
     <asset:javascript src="form-data-helper" />
     <asset:javascript src="computer-request-issue" />
-    <asset:javascript src="computer-view" />
+    <asset:javascript src="computer-view-edit" />
     <asset:javascript src="sweet-alert" />
 </body>
 </html>

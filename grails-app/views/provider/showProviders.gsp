@@ -3,7 +3,7 @@
     <head>
         <meta name="layout" content="defaultMain">
 
-        <title>Admin panel</title>
+        <title>Providers</title>
 
         <asset:stylesheet src="metis-menu.css" />
         <asset:stylesheet src="sb-admin-2.css" />
@@ -42,13 +42,19 @@
                     <div class="col-md-4" ng-repeat="provider in providers">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                {{ provider.id }}
+                                {{ provider.title }}
                             </div>
                             <div class="panel-body">
-                                <p>Description</p>
+                                <div class="container">
+                                    <div class="row">
+                                        <p>{{ provider.description }}</p>
+                                        <br>
+                                        <p><b>Number of products: {{ provider.offers.length }}</b></p>
+                                    </div>
+                                </div>
                             </div>
                             <div class="panel-footer">
-                                <button class="btn btn-primary"><a href="#">Show TITLE offers</a></button>
+                                <a href="<g:createLink controller='provider' action='showProviderOffers' />/{{ provider.name }}"><button class="btn btn-primary">View {{ provider.name }}</button></a>
                             </div>
                         </div>
                     </div>

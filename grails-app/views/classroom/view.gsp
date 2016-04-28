@@ -3,15 +3,16 @@
     <head>
         <meta name="layout" content="defaultMain">
 
-        <title>Class</title>
+        <title>Classroom ${ params.id }</title>
 
         <asset:stylesheet src="metis-menu.css"/>
         <asset:stylesheet src="sb-admin-2.css"/>
+        <asset:stylesheet src="sweet-alert" />
 
         <style>
 
-            .caption a[role="button"] {
-                width: 100%;
+            a {
+                cursor: pointer;
             }
 
             .card-icon {
@@ -21,18 +22,23 @@
                 width: 100%;
             }
 
-            .computer-card a.pull-right {
-                font-size: 2em;
+            .computer-card a.pull-right, .computer-card a.pull-left {
+                margin: 1px 5px;
+                font-size: 1.5em;
+            }
+
+            .tab-content {
+                margin-top: 8px;
             }
 
             .computer-card button {
-                margin-bottom: 5px;
+                margin-top: 5px;
+                margin-bottom: -2px;
                 width: 100%;
             }
 
             .modal .modal-dialog {
                 background-color: #f3f3f3;
-                margin-top: 10%;
             }
 
             .modal textarea {
@@ -40,6 +46,16 @@
                 height: 100px;
                 width: 100%;
             }
+
+            ul li {
+                list-style: none;
+            }
+
+            #modifyComputerModal ul {
+                padding: 0px;
+                min-height: 80px;
+            }
+
 
         </style>
 
@@ -57,10 +73,12 @@
                     <ul class="pager">
                         <li class="previous"><a href="<g:createLink controller='classroom' />"><span aria-hidden="true">&larr;</span> Classrooms</a></li>
                     </ul>
-                    <h1 class="page-header">Computers of Classroom ${ params.number }</h1>
+                    <h1 class="page-header">Computers of Classroom ${ classroom.number }</h1>
                 </div>
 
                 <div class="row">
+
+                    <g:set var="isAdmin" value="${ session.user instanceof app.Administrator }" />
 
                     <g:if test="${ !computers }">
 
@@ -71,62 +89,100 @@
 
                         <g:each in="${ computers }" var="computer">
 
-                        <!-- computer_card -->
-                        <div class="col-md-3 computer-card">
-                            <div class="thumbnail">
-                                <a href="#" class="pull-right"><i class="fa fa-pencil"></i></a>
-                                <i class="fa fa-desktop card-icon"></i>
-                                <div class="caption">
-                                    <h4 class="text-center">Computer</h4><h3 class="text-center">${ computer.name }</h3>
-                                    <div class="list-group">
-                                        <a class="list-group-item">
-                                            <b>IP Address</b> ${ computer.ipAddress }
-                                        </a>
+                            <!-- Computer Card -->
+                            <div class="col-md-3 computer-card">
+                                <div class="thumbnail">
+                                    <a onclick="viewComputer('${ computer.ipAddress }')" class="pull-left"><i class="fa fa-eye">EYE</i></a>
 
+                                    <g:if test="${ isTechnical || isAdmin }">
+
+                                        <a onclick="modifyComputer('${ computer.ipAddress }')" class="pull-right"><i class="fa fa-pencil">EDIT</i></a>
+
+                                    </g:if>
+
+                                    <i class="fa fa-desktop card-icon"></i>
+                                    <div class="caption">
+                                        <h4 class="text-center">Computer</h4><h3 class="text-center">${ computer.name }</h3>
+                                        <div class="list-group">
+                                            <a class="list-group-item">
+                                                <b>IP Address</b> ${ computer.ipAddress }
+                                            </a>
+                                            <ul class="nav nav-tabs nav-pills nav-justified">
+                                                <li class="active">
+                                                    <a data-toggle="pill" href="#tab-hardware">Hardware</a>
+                                                </li>
+                                                <li>
+                                                    <a data-toggle="pill" href="#tab-software">Software</a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content">
+                                                <!-- Hardware tab -->
+                                                <div id="tab-hardware" class="tab-pane fade in active">
+                                                    <g:each in="${ computer.getHardware() }" var="hardware" >
+                                                        <!-- RAM -->
+                                                        <g:if test="${ hardware instanceof app.Ram }">
+                                                            <a class="list-group-item">
+                                                                <b>Ram</b> ${ hardware.name }, ${ hardware.capacity } GB
+                                                            </a>
+                                                        </g:if>
+                                                        <g:elseif test="${ hardware instanceof app.GraphicCard }">
+                                                        <!-- Storage -->
+                                                            <a class="list-group-item">
+                                                                <b>Graphic card</b> ${ hardware.name }, ${ hardware.clockSpeed } MHz
+                                                            </a>
+                                                        </g:elseif>
+                                                        <g:elseif test="${ hardware instanceof app.HardDrive }">
+                                                        <!-- GraphicCard -->
+                                                            <a class="list-group-item">
+                                                                <b>Hard Drive</b> ${ hardware.name }, ${ hardware.storage } GB
+                                                            </a>
+                                                        </g:elseif>
+                                                        <g:else>
+                                                            <a class="list-group-item">
+                                                                <b>${ hardware }</b> ${ hardware.name }
+                                                            </a>
+                                                        </g:else>
+                                                    </g:each>
+                                                </div>
+
+                                                <!-- Software tab -->
+                                                <div id="tab-software" class="tab-pane fade">
+                                                    <!-- Operating System -->
+                                                    <a class="list-group-item">
+                                                        <b>Operating system</b> &nbsp;<i class="fa fa-${ computer.operatingSystem.icon }"></i>
+                                                    </a>
+                                                    <!-- FileSystem -->
+                                                    <a class="list-group-item">
+                                                        <b>File system</b> ${ computer.fileSystem.type }
+                                                    </a>
+                                                    <a class="list-group-item">
+                                                        <center><b><u>Installed Software</u></b></center>
+                                                    </a>
+                                                    <g:each in="${ computer.getSoftware() }" var="software" >
+                                                        <a class="list-group-item">
+                                                            ${ software.name }
+                                                        </a>
+                                                    </g:each>
+                                                </div>
+                                            </div>
+
+                                            <button onclick="installRequest('${ computer.ipAddress }');" class="btn btn-success" role="button">Install request</button>
+                                            <button onclick="notifyIssue('${ computer.ipAddress }');" class="btn btn-warning" role="button">Notify issue</button>
+                                        </div>
                                     </div>
-
-                                    <button onclick="installRequest('${ computer.ipAddress }');" class="btn btn-primary" role="button">Install request</button>
-
-                                    <button onclick="notifyIssue('${ computer.ipAddress }');" class="btn btn-warning" role="button">Notify issue</button>
                                 </div>
                             </div>
-                        </div>
-                        <!-- ! computer_card -->
+
+                            <!-- ! Computer Card -->
 
                         </g:each>
 
-                        <!-- Installation Request Modal -->
+                        <!-- Action modals -->
+                        <div id="viewComputerModal" class="modal fade" tabindex="-1" role="dialog"></div>
+                        <div id="modifyComputerModal" class="modal fade" tabindex="-1" role="dialog"></div>
                         <div id="installRequestModal" class="modal fade" tabindex="-1" role="dialog"></div>
-
-                        <!-- Notify Issue Modal -->
-                        <div id="notifyIssueModal" class="modal fade" tabindex="-1" role="dialog">
-                            <!--
-                            <div class="modal-dialog">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">×</span>
-                                    </button>
-                                    <h4 class="modal-title">Computer {IpAddress}</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <h4>Issue Description:</h4>
-                                            <textarea class="form-control"></textarea>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <h4>Remarks:</h4>
-                                            <textarea class="form-control"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>
-                            </div>
-                            -->
-                        </div>
+                        <div id="notifyIssueModal" class="modal fade" tabindex="-1" role="dialog"></div>
+                        <!-- ! Action modals -->
 
                     </g:else>
 
@@ -136,10 +192,14 @@
     </div>
 
     <!-- Script -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <asset:javascript src="jquery.min.js" />
+    <asset:javascript src="jquery-ui.min.js" />
+    <asset:javascript src="bootstrap.min.js" />
     <asset:javascript src="metisMenu.js" />
     <asset:javascript src="sb-admin-2.js" />
+    <asset:javascript src="sweet-alert" />
+    <asset:javascript src="form-data-helper" />
     <asset:javascript src="computer-request-issue" />
+    <asset:javascript src="computer-view-edit" />
 </body>
 </html>

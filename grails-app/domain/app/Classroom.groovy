@@ -16,12 +16,11 @@ class Classroom {
         computers(nullable: true)
     }
 
-    def remainingSpace() {
-        //maxCapacity - computers.length
+    def getRemainingSpace() {
+        return maxCapacity - computers.size()
     }
 
     def isFull() {
-        //computers.length >= maxCapacity
+        return computers.size() >= maxCapacity
     }
-
 }

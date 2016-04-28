@@ -1,4 +1,6 @@
 
+'use-strict';
+
 /** trims the passed string */
 function trim(str) {
     return str.replace(/^\s+|\s+$/gm,'');

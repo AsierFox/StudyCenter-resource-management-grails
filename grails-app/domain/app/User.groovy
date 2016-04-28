@@ -4,6 +4,8 @@ package app
 
 class User {
 
+    public static final String DEFAULT_AVATAR = 'default-avatar.png'
+
     String dni
     String username
     String password

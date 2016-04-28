@@ -51,6 +51,8 @@ class NotifyIssueService {
 
         // Increment the number of Tickets of the chose Technical
         technicalService.incrementNumberTickets(technical)
+
+        System.out.println('Install Request sent to ' + technical.username)
     }
 
     def getAllIssueTypes() {

@@ -23,6 +23,11 @@ class LoggedInterceptor {
     }
 
     boolean after() {
+        def user = session.user
+        request.isAdmin = user instanceof app.Administrator
+        request.isTechnical = user instanceof app.Technical && !request.isAdmin
+        request.isUser = user instanceof app.User && !request.isTechnical && !request.isAdmin
+
         true
     }
 

@@ -1,4 +1,6 @@
 
+'use-strict';
+
 /**
  * Shared data for computer ip address and name, and form data at
  * the submition.
@@ -77,13 +79,15 @@ var loadIssueTypeSelect = function(selId) {
  */
 var processInstallRequestForm = function() {
     var subject     = document.getElementById('form-request-subject');
-    var description = document.getElementById('form-request-description');
     var software    = document.getElementById('all-software-select');
+    var description = document.getElementById('form-request-description');
+
+    var softwareSelOption = software.options[software.selectedIndex];
 
     // Validate data
     if (!formDataHelper.validString(subject.value) ||
             !formDataHelper.validString(description.value) ||
-                !formDataHelper.validString(software.value))
+                !formDataHelper.validString(softwareSelOption.value))
     {
         notifyInstallRequestError('You need to fill all the data!');
         return false;
@@ -92,12 +96,12 @@ var processInstallRequestForm = function() {
     sendData.request = {
         "subject": subject.value,
         "description": description.value,
-        "software": software.value
+        "software": softwareSelOption.value
     };
 
     swal({
         title: 'Are you sure to send this Software Request?',
-        text: 'Software Request',
+        text: 'Software Request for ' + softwareSelOption.text + ' of computer ' + sendData.computer.name,
         type: 'info',
         showCancelButton: true,
         closeOnConfirm: false,
@@ -130,9 +134,10 @@ var processInstallRequestForm = function() {
 var installRequest = function(computerIpAddress) {
     var modalId      = 'installRequestModal';
     var modal        = $('#' + modalId);
+    var modalDiv     = document.getElementById(modalId);
     var computerName = getComputerNameByIpAddress(computerIpAddress);
 
-    document.getElementById(modalId).innerHTML = '<div class="modal-dialog"> \
+    modalDiv.innerHTML = '<div class="modal-dialog"> \
             <div class="modal-header"> \
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"> \
                     <span aria-hidden="true">×</span> \
@@ -201,9 +206,11 @@ var processNotifyIsueForm = function() {
     var description = document.getElementById('form-issue-description');
     var remarks     = document.getElementById('form-issue-remarks');
 
+    var topicSelOption = topic.options[topic.selectedIndex];
+
     // Validate data
     if (!formDataHelper.validString(subject.value) ||
-            !topic.options[topic.selectedIndex].value ||
+            !topicSelOption.value ||
                 !formDataHelper.validString(description.value) ||
                     !formDataHelper.validString(remarks.value))
     {
@@ -213,14 +220,14 @@ var processNotifyIsueForm = function() {
 
     sendData.issue = {
         "subject": subject.value,
-        "topic": topic.options[topic.selectedIndex].value,
+        "topic": topicSelOption.value,
         "description": description.value,
         "remarks": remarks.value
     };
 
     swal({
         title: 'Are you sure to send this issue notification?',
-        text: 'Issue notification',
+        text: 'Issue notification for ' + topicSelOption.text + ' of the computer ' + sendData.computer.name,
         type: 'info',
         showCancelButton: true,
         closeOnConfirm: false,
@@ -249,11 +256,12 @@ var processNotifyIsueForm = function() {
 };
 
 var notifyIssue = function(computerIpAddress) {
-    var modalId = 'notifyIssueModal';
-    var modal = $('#' + modalId);
+    var modalId      = 'notifyIssueModal';
+    var modal        = $('#' + modalId);
+    var modalDiv     = document.getElementById(modalId);
     var computerName = getComputerNameByIpAddress(computerIpAddress);
 
-    document.getElementById(modalId).innerHTML = '<div class="modal-dialog"> \
+    modalDiv.innerHTML = '<div class="modal-dialog"> \
         <div class="modal-header"> \
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"> \
                 <span aria-hidden="true">×</span> \

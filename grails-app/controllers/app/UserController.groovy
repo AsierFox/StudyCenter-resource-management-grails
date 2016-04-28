@@ -1,5 +1,7 @@
 package app
 
+import src.groovy.exceptions.SignUpUserException
+
 /**
  * This controller is going to manage the user related actions, like logins,
  * sessions...
@@ -11,7 +13,14 @@ class UserController {
     def searchService
 
     static defaultAction  = 'login'
-    static allowedMethods = [authenticate: 'POST', logout: 'POST', getAllUsers: 'POST', search: 'POST']
+
+    static allowedMethods = [
+        authenticate: 'POST',
+        logout: 'POST',
+        getAllUsers: 'POST',
+        search: 'POST',
+        signUpUser: 'POST'
+    ]
 
     def index() {
         if ( session.user ) {
@@ -51,16 +60,30 @@ class UserController {
     }
 
     /**
+     * Renders the view to Sign up the User.
+     */
+    def signUp() { }
+
+    /**
      * Sign ups the User.
      */
-    def signUp() {
-        if ( session.user ) {
-            redirect(action: 'index')
+     def signUpUser() {
+        boolean success = true
+        try {
+            signUpService.signUpUser(params)
         }
-        else {
-            render(view: 'signUp')
+        catch(SignUpUserException | Exception err) {
+            success = false
         }
-    }
+
+        if (success) {
+            request.successMsg = 'User ' + params.get('form-first-name') + ' registered'
+        } else {
+            request.errorMsg = 'The user could not be registered'
+        }
+
+        render(view: 'signUp')
+     }
 
     /**
      * Shows the user information.
@@ -103,5 +126,4 @@ class UserController {
         session.invalidate()
         redirect(action: defaultAction)
     }
-
 }

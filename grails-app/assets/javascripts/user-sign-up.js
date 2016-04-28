@@ -1,5 +1,5 @@
 
-var newUser = {};
+'use-strict';
 
 /**
  * Ajax load for the classes at page loaded.
@@ -42,17 +42,25 @@ var showClassroomComputers = function(sel) {
 
     req.done(function(data) {
         var classroomComputerSelect = $('#select-classroomComputer');
+        var computerSize = data.length;
+
+        // Remove options of select
+        classroomComputerSelect
+            .find('option')
+            .remove()
+            .end()
+            .append('<option value="whatever">Choose a computer</option>')
+            .val('whatever');
 
         // Check if the classroom have computers
-        if ( !data.length ) {
+        if ( !computerSize ) {
             classroomComputerSelect
-                .append($("<option></option>")
-                        .text('There are no computers at this classroom.'));
+                .append($("<option value=''></option>")
+                    .text('There are no computers at this classroom.'));
             return;
         }
         var computerList = '';
         var computers = data;
-        var computerSize = data.length;
 
         for (var i = 0; i < computerSize; i++) {
             var computer = computers[i];
@@ -66,19 +74,10 @@ var showClassroomComputers = function(sel) {
 };
 
 /**
- * Selects the computer for the user.
- */
-var selectUserComputer = function(sel) {
-    newUser.computer = sel.value;
-};
-
-/**
  * Validates the form for the user sign up.
  */
 var validateForm = function() {
-    var errorColor = '#d50000';
-
-    // TODO: Check compute.newUser == null
+    var errorColor = '#D50000';
 
     var inputs = document.getElementsByTagName('input');
     var inputsSize = inputs.length;
@@ -90,25 +89,23 @@ var validateForm = function() {
     var email          = document.getElementById('form-email');
     var password       = document.getElementById('form-password');
     var repeatPassword = document.getElementById('form-repeat-password');
-    var avatar         = document.getElementById('form-avatar');
+    var computer       = document.getElementById('form-computer');
 
     for (var i = 0; i < inputsSize; i++) {
-        inputs[i].style.borderColor = '#fff';
+        inputs[i].style.borderColor = '#EF5350';
     }
 
-    if ( !formDataHelper.validateEmail(email.value) ) {
+    if ( !formDataHelper.validString(email.value) ||
+            !formDataHelper.validateEmail(email.value) )
+    {
         email.style.borderColor = errorColor;
         return false;
     }
     if ( !formDataHelper.validatePassword(password.value, repeatPassword.value) ) {
         return false;
     }
-    if ( !newUser.computer ) {
+    if ( !formDataHelper.validString(computer.value) ) {
         return false;
-    }
-    // If not avatar, set default
-    if ( !avatar.value ) {
-        // Set to default value.
     }
 
     return true;

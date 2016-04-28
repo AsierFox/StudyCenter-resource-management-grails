@@ -2,14 +2,13 @@ package app
 
 class Stock {
 
-    Collection computers
-    Collection components
+    Collection stockLines
 
     static hasMany = [
-        computers: Computer,
-        components: Component
+        stockLines: StockLine
     ]
 
     static constraints = {
+        stockLines(nullable: true)
     }
 }

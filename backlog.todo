@@ -1,67 +1,35 @@
 NEXT (DOING ALL WITH User, then controll roles):
-    ☐ MongoDB Providers
-    ☐ View computer modal
-    ☐ Edit computer components (Check at remove the Hadware that not affects to Software)
-    ☐ Remove Classroom option for administrator (PCs to Stock)
-    ☐ Ticket management for Technicals
-    ☐ Stock
-    ☐ Info about the Issue type in alert (at send)
-    ☐ Mapping name sort for computers [Put on classroom, due to the List of PCs is there]
-    ☐ [UserController] Sign-up User.
+    ☐ Edit computer components (Check at remove the Hadware that not affects to Software).
+    ☐ Remove Classroom computer, all components to the Stock.
+    ☐ Ticket management for Technicals.
+    ☐ Stock CRUD.
+    ☐ At CRUD a computer, the tickets (?).
+    ☐ CRUD Issue Type.
+    ☐ Generate the PDF with providers offers.
+    ☐ CRUD Stock and make computer.
+    ☐ CRUD Classroom.
+    ☐ Technicals also can modify the components of computers.
+    ☐ Send email at change the tickets.
+    ☐ PC Creation Controll the capacity of the classroom respect the number of the computers.
+    ☐ CHECK there are not Technicals available at sending tickets!
 
 
 TODO:
-    ☐ [UserController] Change to a controller that displays the user info, if the user is not sessioner, redirect to login.
-    ☐ Redirect the user where they were trying to access (when accesin without login).
-    ☐ Replace .css files into directories.
-    ☐ Back to home page in login and admin (validate).
-    ☐ Controll no more than 1 OS or FileSystem
-    ☐ Pagination of allUsers
-    ☐ Sign-up redirection when user session is ON.
-    ☐ Set computer (Technical, Administrator) to nullable: true.
-    ☐ From sign-up make a breadcrum for returning to the login or home.
-    ☐ maxCapacity y number of computers of the classroom.
-    ☐ [ClassroomController.view()] Carry the classroom object.
-    ☐ Controll the capacity of the classroom respect the number of the computers.
-    ☐ MongoDB List show
-    ☐ Admins, Technicals without computers
-    ☐ Botones al mismo nivel
-    ☐ Check all the use of cases in Install Software Request
-    ☐ Change '/admin' URL group name to '/app'
-    ☐ Fix Session to Single Thread
-    ☐ Fix computer card for 'md' screens
-    ☐ Technical and administrator have computer :\, change it to nullable
-    ☐ [NotifyIssueService.sendIssue()] Check for SAME topic SAME Computer
-    ☐ Get computer classroom
-    ☐ Controll that User must have a Computer
-    ☐ Controll if there are not Technicals at removing one
-    ☐ Icon in login when trying to access to page without login
-    ☐ Filter for sections of only Administrator and Techinical roles
-
-
-LATER:
-    ☐ Modify user rol
-    ☐ Delete user (if technical, pass all its Tickets to the MainClass)
-
-
-DO NOT KNOW:
+    ☐ Pagination of allUsers, angular.
+    ☐ Change sign-up for Proffesors only.
+    ☐ PC to Stock (Review users associated to it)
+    ☐ Improve View computer modal.
+    ☐ Improve User sign up, and only for Profesors.
+    ☐ Fix computer card for 'md' screens.
+    ☐ Get computer classroom.
+    ☐ Controll if there are not Technicals at deleting the last one.
+    ☐ Icon in flash errors at formularies.
+    ☐ Filter for sections of specific roles.
+    ☐ Use of Terms.
+    ☐ Modify user rol (remove computer association to a computer if not user).
+    ☐ Delete user (if technical, pass all its Tickets to the MainClass).
     ☐ Encrypt the user passwords.
-    ☐ Hardware types of components (Videocard, RAM, processor, etc...)
-    ☐ [LoggedInterceptor.before()] Get the error message from i18n file
-    ☐ Pass user return from database without password attr
-    ☐ Edit user profile image
-
-
-IDEAS:
-    ☐ Drags and drop for user avatar image modification.
-    ☐ Términos de uso.
-
-
-FUTURE:
     ☐ 404 and 500 error pages (web_templates/miminium-master-admin-panel).
-    ☐ Delete test view.
-    ☐ Change layout 'defaultMain' <title>.
-    ☐ Delete Grails index view
 
 
 NOTES:
@@ -79,6 +47,7 @@ JSON Providers:
       "description": "Shop of computer components",
       "offers": [
         {
+          "ref": "42323",
           "name": "NVIDIA GTX 680",
           "brand": "nvidia",
           "description": "Modern graphic card for hard gamming.",
@@ -90,6 +59,7 @@ JSON Providers:
           "category": ["computer-components", "graphic-card"]
         },
         {
+          "ref": "54434",
           "name": "G. Skill RipJaws",
           "brand": "g-skill",
           "description": "Modern graphic card for hard gamming.",

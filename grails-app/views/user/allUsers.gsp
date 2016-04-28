@@ -3,7 +3,7 @@
     <head>
         <meta name="layout" content="defaultMain">
 
-        <title>Admin panel</title>
+        <title>All users</title>
 
         <asset:stylesheet src="metis-menu.css"/>
         <asset:stylesheet src="sb-admin-2.css"/>

@@ -37,7 +37,7 @@ class InstallRequestService {
 
         Technical technical = technicalService.getLessTicket()
         if (!technical) {
-            throw new InstallRequestException('Could not find any technical')
+            throw new InstallRequestException('Could not find any technical available')
         }
 
         // Save the Install Request Ticket
@@ -56,6 +56,8 @@ class InstallRequestService {
 
         // Increment the number of Tickets of the chose Technical
         technicalService.incrementNumberTickets(technical)
+
+        System.out.println('Install Request sent to ' + technical.username)
     }
 
     /** Returns the Install Request by the passed Id */

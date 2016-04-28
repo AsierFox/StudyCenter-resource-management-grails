@@ -25,4 +25,8 @@ class ComputerService {
         Computer.findByIpAddress(ipAddress).name
     }
 
+    /** Returns all computer software by the computer ip address. */
+    def getAllComputerSoftwareByIpAddress(ipAddress) {
+        Computer.findByIpAddress(ipAddress).components
+    }
 }

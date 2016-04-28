@@ -9,7 +9,8 @@ class ComputerController {
         getComputerByIpAddress: 'POST',
         getComputerNameByIpAddress: 'POST',
         getAllSoftware: 'POST',
-        getAllSoftwareWithinOSFS: 'POST'
+        getAllSoftwareWithinOSFS: 'POST',
+        getComputerComponentsByIpAddress: 'POST'
     ]
 
     def getComputerByIpAddress() {
@@ -33,6 +34,12 @@ class ComputerController {
     def getAllSoftwareWithinOSFS() {
         render(contentType: 'text/json') {
             softwareService.getAllSoftwareWithinOSFS()
+        }
+    }
+
+    def getComputerComponentsByIpAddress() {
+        render(contentType: 'text/json') {
+            computerService.getAllComputerSoftwareByIpAddress(params.ipAddress)
         }
     }
 }

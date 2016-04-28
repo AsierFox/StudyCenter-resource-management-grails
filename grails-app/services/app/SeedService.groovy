@@ -2,10 +2,15 @@ package app
 
 import grails.transaction.Transactional
 
+/**
+ * Seed service for filling the database with data.
+ */
 @Transactional
 class SeedService {
 
     boolean showErrors = true
+
+    Stock stock
 
     Map computers
     Map departaments
@@ -25,6 +30,8 @@ class SeedService {
 
         saveAllComponents()
 
+        saveToStock()
+
         seedComputers()
         seedClassrooms()
         seedUsers()
@@ -37,6 +44,21 @@ class SeedService {
         components.each { k, v ->
             v.save(flush: true, failOnError: showErrors)
         }
+    }
+
+    def saveToStock() {
+        StockLine stockLine
+        Collection stockLines = []
+
+        components.each { k, v ->
+            stockLine = new StockLine(component: v, remaining: 9, total: 10)
+            stockLine.save(flush: true, failOnError: showErrors)
+            stockLines.add(stockLine)
+        }
+
+        stock = new Stock(stockLines: stockLines)
+
+        stock.save(flush: true, failOnError: showErrors)
     }
 
     def seedSoftwareApps() {
@@ -337,6 +359,20 @@ class SeedService {
                 name: "Iban",
                 surname: "Nolose",
                 avatar: "default-avatar.png",
+                available: true,
+                numberTickets: 0,
+                departament: departaments.get('programming'))
+        );
+        staff.add(
+            new Technical(
+                dni: "23821333B",
+                username: "iban2",
+                password: "asier",
+                email: "iban2@gmail.com",
+                name: "Iban2",
+                surname: "Nolose2",
+                avatar: "default-avatar.png",
+                available: true,
                 numberTickets: 0,
                 departament: departaments.get('programming'))
         );

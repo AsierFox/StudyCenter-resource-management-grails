@@ -23,8 +23,12 @@
                     <h1 class="page-header">Tickets</h1>
                 </div>
 
-                <g:if test="${ tickets }">
+                <g:if test="${ !tickets }">
 
+                    <h1>There are not any pending tickets</h1>
+
+                </g:if>
+                <g:else>
 
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -62,11 +66,6 @@
                             </ul>
                         </div>
                     </div>
-
-                </g:if>
-                <g:else>
-
-                    <h1>You do not have any Tickets</h1>
 
                 </g:else>
 

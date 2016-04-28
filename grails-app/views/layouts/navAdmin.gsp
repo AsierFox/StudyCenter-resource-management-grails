@@ -1,10 +1,6 @@
 
 <g:set var="user" value="${ session.user }" />
 
-<g:set var="isUser" value="${ user instanceof app.User }" />
-<g:set var="isTechnical" value="${ user instanceof app.Technical }" />
-<g:set var="isAdmin" value="${ user instanceof app.Administrator }" />
-
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -149,12 +145,12 @@
                 <li>
                     <a href="<g:createLink controller='provider' />"><i class="fa fa-table fa-fw"></i> Providers</a>
                 </li>
-                <g:if test="${ isTechnical }">
+                <g:if test="${ isTechnical && !isAdmin }">
                     <li>
                         <a href="#"><i class="fa fa-table fa-fw"></i> Tickets &nbsp; <span class="label label-primary">${ user.numberTickets }</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="<g:createLink controller='ticket' />">Timeline</a>
+                                <a href="<g:createLink controller='ticket' />">Pending Timeline</a>
                             </li>
                             <li>
                                 <a href="<g:createLink controller='ticket' action='installRequest' />">Install Request</a>
@@ -165,6 +161,9 @@
                         </ul>
                     </li>
                 </g:if>
+                <li>
+                    <a href="<g:createLink controller='stock' />"><i class="fa fa-table fa-fw"></i> Stock</a>
+                </li>
                 <li>
                     <a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">

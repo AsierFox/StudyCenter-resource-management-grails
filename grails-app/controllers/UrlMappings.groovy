@@ -9,10 +9,11 @@ class UrlMappings {
         "/"(controller: 'home')
         "/user/sign-up"(controller: 'user', action: 'signUp')
 
-        group("/admin") {
+        group("/app") {
             "/classroom/$action?/$id?(.$format)?"(controller: 'classroom')
             "/user/all-users"(controller: 'user', action: 'allUsers')
             "/providers/$action?/$id?(.$format)?"(controller: 'provider')
+            "/providers/offers/$id?(.$format)?"(controller: 'provider', action: 'showProviderOffers')
             "/tickets/$action?/$id?(.$format)?"(controller: 'ticket')
         }
 

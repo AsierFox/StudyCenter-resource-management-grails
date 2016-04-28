@@ -9,13 +9,18 @@ class ProviderController {
     static allowedMethods = [getAllProviders: 'POST']
 
     def index() {
-        render(view: '/provider/showProviders')
+        render(view: 'showProviders')
+    }
+
+    def showProviderOffers() {
+        String providerName = params.id
+        request.offers = providerService.getAllProviderOffers(providerName)
+        render(view: 'providerOffers')
     }
 
     def getAllProviders() {
-        render(contentType: 'text/json') {[
-            'providers': providerService.getProviders().json
-        ]}
+        render(contentType: 'text/json') {
+            providerService.getProviders()
+        }
     }
-
 }
