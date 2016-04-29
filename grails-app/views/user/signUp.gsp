@@ -93,7 +93,7 @@
                         </div>
 
                         <div class="form-group">
-                            <select id="select-class" name="form-classroom" onchange="showClassroomComputers(this)" class="form-control">
+                            <select id="select-class" name="form-classroom" onchange="showClassroomComputers(this, 'select-classroomComputer')" class="form-control">
                                 <option value="">Choose a classroom</option>
                             </select>
                         </div>

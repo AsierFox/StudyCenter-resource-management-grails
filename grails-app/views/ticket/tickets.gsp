@@ -86,6 +86,7 @@
                                         </div>
 
                                     <g:set var="count" value="${ count + 1 }" />
+
                                     </g:each>
 
                                 </div>

@@ -13,6 +13,14 @@ class ClassroomService {
         Classroom.findAll()
     }
 
+    def getClassroomComputerCount(id) {
+        Classroom.get(id).computers.size()
+    }
+
+    def isClassroomFull(Classroom classroom) {
+        return getClassroomComputerCount(classroom.id) >= classroom.maxCapacity
+    }
+
     /** Returns the Classroom with the number passed by parameter. */
     def getClassroomByNumber(number) {
         Classroom.findByNumber(number)

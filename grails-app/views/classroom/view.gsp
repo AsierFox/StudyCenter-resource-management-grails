@@ -87,6 +87,8 @@
                     </g:if>
                     <g:else>
 
+                        <g:set var="count" value="${ 0 }" />
+
                         <g:each in="${ computers }" var="computer">
 
                             <!-- Computer Card -->
@@ -109,15 +111,15 @@
                                             </a>
                                             <ul class="nav nav-tabs nav-pills nav-justified">
                                                 <li class="active">
-                                                    <a data-toggle="pill" href="#tab-hardware">Hardware</a>
+                                                    <a data-toggle="pill" href="#tab-hardware-${ count }">Hardware</a>
                                                 </li>
                                                 <li>
-                                                    <a data-toggle="pill" href="#tab-software">Software</a>
+                                                    <a data-toggle="pill" href="#tab-software-${ count }">Software</a>
                                                 </li>
                                             </ul>
                                             <div class="tab-content">
                                                 <!-- Hardware tab -->
-                                                <div id="tab-hardware" class="tab-pane fade in active">
+                                                <div id="tab-hardware-${ count }" class="tab-pane fade in active">
                                                     <g:each in="${ computer.getHardware() }" var="hardware" >
                                                         <!-- RAM -->
                                                         <g:if test="${ hardware instanceof app.Ram }">
@@ -146,7 +148,7 @@
                                                 </div>
 
                                                 <!-- Software tab -->
-                                                <div id="tab-software" class="tab-pane fade">
+                                                <div id="tab-software-${ count }" class="tab-pane fade">
                                                     <!-- Operating System -->
                                                     <a class="list-group-item">
                                                         <b>Operating system</b> &nbsp;<i class="fa fa-${ computer.operatingSystem.icon }"></i>
@@ -174,6 +176,8 @@
                             </div>
 
                             <!-- ! Computer Card -->
+
+                            <g:set var="count" value="${ count + 1 }" />
 
                         </g:each>
 

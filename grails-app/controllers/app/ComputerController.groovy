@@ -1,5 +1,7 @@
 package app
 
+import src.groovy.exceptions.ComputerBuildException
+
 class ComputerController {
 
     def computerService
@@ -12,6 +14,21 @@ class ComputerController {
         getAllSoftwareWithinOSFS: 'POST',
         getComputerComponentsByIpAddress: 'POST'
     ]
+
+    def createNewComputer() {
+        boolean success = true
+        String error = ''
+        try {
+            computerService.createNewComputer(params.classroomNumber, params.computerIPAddress, params.computerName, params.osId, params.fsId)
+        } catch (ComputerBuildException err) {
+            success = false
+            error = err.getMessage()
+        }
+        render(contentType: 'text/json') {[
+            success: success,
+            error: error
+        ]}
+    }
 
     def getComputerByIpAddress() {
         render(contentType: 'text/json') {
@@ -28,6 +45,18 @@ class ComputerController {
     def getAllSoftware() {
         render(contentType: 'text/json') {
             softwareService.getAllSoftware()
+        }
+    }
+
+    def getAllOperatingSystems() {
+        render(contentType: 'text/json') {
+            softwareService.getAllOperatingSystems()
+        }
+    }
+
+    def getAllFileSystems() {
+        render(contentType: 'text/json') {
+            softwareService.getAllFileSystems()
         }
     }
 

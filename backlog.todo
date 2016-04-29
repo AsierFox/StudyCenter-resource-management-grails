@@ -1,23 +1,22 @@
 NEXT (DOING ALL WITH User, then controll roles):
     ☐ Edit computer components (Check at remove the Hadware that not affects to Software).
-    ☐ Remove Classroom computer, all components to the Stock.
+    ☐ Remove Classroom computer, all components to the Stock and check the tickets.
     ☐ Ticket management for Technicals.
     ☐ Stock CRUD.
-    ☐ At CRUD a computer, the tickets (?).
     ☐ CRUD Issue Type.
     ☐ Generate the PDF with providers offers.
-    ☐ CRUD Stock and make computer.
-    ☐ CRUD Classroom.
     ☐ Technicals also can modify the components of computers.
     ☐ Send email at change the tickets.
-    ☐ PC Creation Controll the capacity of the classroom respect the number of the computers.
+    ☐ Validate IP address at creating the computer, validate repeated computer NAME or IP.
     ☐ CHECK there are not Technicals available at sending tickets!
+    ☐ Add state of SOLVING to Tickets (?).
+    ☐ Create classroom.
 
 
 TODO:
     ☐ Pagination of allUsers, angular.
     ☐ Change sign-up for Proffesors only.
-    ☐ PC to Stock (Review users associated to it)
+    ☐ PC to Stock, retrieving all the PC components to the stock (Review users associated to it)-
     ☐ Improve View computer modal.
     ☐ Improve User sign up, and only for Profesors.
     ☐ Fix computer card for 'md' screens.
