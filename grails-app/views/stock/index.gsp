@@ -30,7 +30,7 @@
                     <h2 class="page-header">Stock</h2>
                     <p>The stock is the place where components are stored.</p>
 
-                    <button onclick="createComputer()" class="btn btn-primary" type="button">Create computer</button>
+                    <button onclick="createComputer()" class="btn btn-primary" type="button"><i class="fa fa-plus" aria-hidden="true"></i> Create computer</button>
 
                     <div id="createComputerModal" class="modal fade" tabindex="-1" role="dialog">
 
@@ -136,6 +136,7 @@
                             </g:each>
 
                             </tbody>
+                        </table>
 
                     </g:else>
 

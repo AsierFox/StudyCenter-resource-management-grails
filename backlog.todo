@@ -1,9 +1,10 @@
 NEXT (DOING ALL WITH User, then controll roles):
+    ☐ CRUD Issue Type.
     ☐ Edit computer components (Check at remove the Hadware that not affects to Software).
     ☐ Remove Classroom computer, all components to the Stock and check the tickets.
     ☐ Ticket management for Technicals.
     ☐ Stock CRUD.
-    ☐ CRUD Issue Type.
+    ☐ Add available field to stock.
     ☐ Generate the PDF with providers offers.
     ☐ Technicals also can modify the components of computers.
     ☐ Send email at change the tickets.
@@ -19,7 +20,9 @@ TODO:
     ☐ PC to Stock, retrieving all the PC components to the stock (Review users associated to it)-
     ☐ Improve View computer modal.
     ☐ Improve User sign up, and only for Profesors.
+    ☐ Input placeholders.
     ☐ Fix computer card for 'md' screens.
+    ☐ Cambiar iconos menu y de los tickets.
     ☐ Get computer classroom.
     ☐ Controll if there are not Technicals at deleting the last one.
     ☐ Icon in flash errors at formularies.
@@ -29,6 +32,7 @@ TODO:
     ☐ Delete user (if technical, pass all its Tickets to the MainClass).
     ☐ Encrypt the user passwords.
     ☐ 404 and 500 error pages (web_templates/miminium-master-admin-panel).
+    ☐ Network card Hardware.
 
 
 NOTES:

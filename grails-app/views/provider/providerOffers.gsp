@@ -7,7 +7,7 @@
 
         <asset:stylesheet src="metis-menu.css"/>
         <asset:stylesheet src="sb-admin-2.css"/>
-        <asset:javascript src="view-provider-offers" />
+        <asset:stylesheet src="sweet-alert" />
     </head>
 <body>
 
@@ -77,32 +77,17 @@
     </div>
     <!-- /#wrapper -->
 
+    <input id="provider-name" type="text" class="hidden" value="${ params.id }">
+
     <!-- Script -->
     <asset:javascript src="jquery.min.js" />
     <asset:javascript src="bootstrap.min.js" />
     <asset:javascript src="metisMenu.js" />
     <asset:javascript src="sb-admin-2.js" />
-
-    <script>
-
-        var generatePDF = function() {
-            var checkboxName = 'offer';
-            var selectedOffers = [];
-            var allCheckbox = document.getElementsByName(checkboxName);
-            var allCheckboxSize = allCheckbox.length;
-
-            for (var i = 0; i < allCheckboxSize; i++) {
-                var checkbox = allCheckbox[i];
-
-                if (checkbox.checked) {
-                    selectedOffers.push(checkbox.value);
-                }
-            }
-
-            return false;
-        };
-
-    </script>
-
+    <asset:javascript src="view-provider-offers" />
+    <asset:javascript src="jspdf" />
+    <asset:javascript src="file-saver" />
+    <asset:javascript src="sweet-alert" />
+    <asset:javascript src="generate-provider-offers-pdf" />
 </body>
 </html>
