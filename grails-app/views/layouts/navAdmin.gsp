@@ -9,104 +9,18 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="<g:createLink controller='admin' />">Resource manager</a>
+        <br>
+        <a class="navbar-brand" href="<g:createLink controller='admin' />">
+            COMPUFOX
+        </a>
     </div>
     <!-- /.navbar-header -->
-
     <ul class="nav navbar-top-links navbar-right">
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-messages">
-                <li>
-                    <a href="#">
-                        <div>
-                            <strong>John Smith</strong>
-                            <span class="pull-right text-muted">
-                                <em>Yesterday</em>
-                            </span>
-                        </div>
-                        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a href="#">
-                        <div>
-                            <strong>John Smith</strong>
-                            <span class="pull-right text-muted">
-                                <em>Yesterday</em>
-                            </span>
-                        </div>
-                        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a class="text-center" href="#">
-                        <strong>Read All Messages</strong>
-                        <i class="fa fa-angle-right"></i>
-                    </a>
-                </li>
-            </ul>
-            <!-- /.dropdown-messages -->
-        </li>
-        <!-- /.dropdown -->
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-tasks fa-fw"></i>  <i class="fa fa-caret-down"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-tasks">
-                <li>
-                    <a href="#">
-                        <div>
-                            <p>
-                                <strong>Task 1</strong>
-                                <span class="pull-right text-muted">40% Complete</span>
-                            </p>
-                            <div class="progress progress-striped active">
-                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                    <span class="sr-only">40% Complete (success)</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a href="#">
-                        <div>
-                            <p>
-                                <strong>Task 4</strong>
-                                <span class="pull-right text-muted">80% Complete</span>
-                            </p>
-                            <div class="progress progress-striped active">
-                                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                                    <span class="sr-only">80% Complete (danger)</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a class="text-center" href="#">
-                        <strong>See All Tasks</strong>
-                        <i class="fa fa-angle-right"></i>
-                    </a>
-                </li>
-            </ul>
-            <!-- /.dropdown-tasks -->
-        </li>
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                <i class="fa fa-user fa-fw"></i>  ${ user.username } <i class="fa fa-caret-down"></i>
             </a>
             <ul class="dropdown-menu dropdown-user">
-                <li><a href="<g:createLink controller='user' action='profile' />"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                </li>
-                <li class="divider"></li>
                 <li>
                     <g:form style="text-align: center" method="POST" controller="user" action="logout">
                         <button type="submit" class="btn btn-link"><i class="fa fa-sign-out fa-fw"></i> Logout</button>
@@ -122,30 +36,21 @@
     <div class="navbar-default sidebar" role="navigation">
         <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">
-                <li class="sidebar-search">
-                    <div class="input-group custom-search-form">
-                        <input type="text" class="form-control" placeholder="Search...">
-                        <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </span>
-                    </div>
-                    <!-- /input-group -->
-                </li>
                 <li>
                     <a href="<g:createLink controller='admin' />"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                 </li>
                 <li>
-                    <a href="<g:createLink controller='classroom' />"><i class="fa fa-table fa-fw"></i> Classrooms</a>
+                    <a href="<g:createLink controller='classroom' />"><i class="fa fa-table fa-book"></i> Classrooms</a>
                 </li>
+                <g:if test="${ user.isAdmin() }">
+                    <li>
+                        <a href="<g:createLink controller='user' action='allUsers' />"><i class="fa fa-edit fa-users"></i> All users</a>
+                    </li>
+                </g:if>
                 <li>
-                    <a href="<g:createLink controller='user' action='allUsers' />"><i class="fa fa-edit fa-fw"></i> All users</a>
+                    <a href="<g:createLink controller='provider' />"><i class="fa fa-table fa-product-hunt"></i> Providers</a>
                 </li>
-                <li>
-                    <a href="<g:createLink controller='provider' />"><i class="fa fa-table fa-fw"></i> Providers</a>
-                </li>
-                <g:if test="${ isTechnical && !isAdmin }">
+                <g:if test="${ user.isTechnical() }">
                     <li>
                         <a href="#"><i class="fa fa-table fa-fw"></i> Tickets &nbsp; <span class="label label-primary">${ user.numberTickets }</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
@@ -162,19 +67,80 @@
                     </li>
                 </g:if>
                 <li>
-                    <a href="<g:createLink controller='stock' />"><i class="fa fa-table fa-fw"></i> Stock</a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-wrench fa-fw"></i> Modifications<span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-wrench fa-fw"></i> Technicals...<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="<g:createLink controller='issueType' />">Issue Types</a>
+                            <a href="<g:createLink controller='user' action='getAvailableTechnicals' />"><i class="fa fa-table fa-check"></i> Available technicals</a>
                         </li>
                         <li>
-                            <a href="buttons.html">Buttons</a>
+                            <a href="<g:createLink controller='ticket' action='technicalRanking' />"><i class="fa fa-table fa-fw"></i> Technical ranking</a>
                         </li>
                     </ul>
-                    <!-- /.nav-second-level -->
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-wrench fa-fw"></i> View...<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="<g:createLink controller='software' />"><i class="fa fa-table fa-fw"></i> View software</a>
+                        </li>
+                        <li>
+                            <a href="<g:createLink controller='hardware' />"><i class="fa fa-table fa-fw"></i> View hardware</a>
+                        </li>
+                        <li>
+                            <a href="<g:createLink controller='component' action='viewOperatingSystems' />"><i class="fa fa-table fa-fw"></i> View Operating Systems</a>
+                        </li>
+                        <li>
+                            <a href="<g:createLink controller='component' action='viewFileSystems' />"><i class="fa fa-table fa-fw"></i> View File Systems</a>
+                        </li>
+                    </ul>
+                </li>
+                <g:if test="${ user.isTechnical() || user.isAdmin() }">
+                    <li>
+                        <a href="#"><i class="fa fa-wrench fa-plus-circle"></i> Create...<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="<g:createLink controller='user' action='sign-up' />"><i class="fa fa-table fa-plus"></i> Sign up user</a>
+                            </li>
+                            <li>
+                                <a href="<g:createLink controller='issueType' />"><i class="fa fa-table fa-plus"></i> Issue Types</a>
+                            </li>
+                            <li>
+                                <a href="<g:createLink controller='classroom' action='create' />"><i class="fa fa-table fa-plus"></i> Create classroom</a>
+                            </li>
+                            <li>
+                                <a href="<g:createLink controller='computer' action='createComputer' />"><i class="fa fa-table fa-plus"></i> Create computer</a>
+                            </li>
+                            <li>
+                                <a href="<g:createLink controller='component' action='createSoftware' />"><i class="fa fa-table fa-plus"></i> Create software</a>
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-wrench fa-hdd-o"></i> Hardware<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="<g:createLink controller='hardware' action='createGraphicCard' />"><i class="fa fa-table fa-fw"></i> Create Graphic Card</a>
+                            </li>
+                            <li>
+                                <a href="<g:createLink controller='hardware' action='createHardDrive' />"><i class="fa fa-table fa-fw"></i> Create Hard Drive</a>
+                            </li>
+                            <li>
+                                <a href="<g:createLink controller='hardware' action='createNetworkCard' />"><i class="fa fa-table fa-fw"></i> Create Network Card</a>
+                            </li>
+                            <li>
+                                <a href="<g:createLink controller='hardware' action='createRam' />"><i class="fa fa-table fa-fw"></i> Create ram</a>
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+                </g:if>
+                <li>
+                    <br>
+                    <center>
+                        <g:img dir="images" file="logo/compufox-logo.png" width="140" />
+                    </center>
+                    <br>
                 </li>
             </ul>
         </div>

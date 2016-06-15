@@ -107,7 +107,10 @@ function removeIssueType(issueTypeId, issueTypeTopic) {
             data: { "id": issueTypeId },
             dataType: "json",
             success: function(data) {
-
+                if (!data.success) {
+                    sweetAlert('The issue type could not be deleted', data.error, 'error');
+                    return;
+                }
                 swal({
                     title: 'The issue type was deleted!',
                     type: 'success',
@@ -144,7 +147,7 @@ function showModifyIssueModal(topicName) {
                                         <div class="col-md-12"> \
                                             <h4>Topic</h4> \
                                             <input id="form-issue-topic-modify" type="hidden" value="' + topicName + '"> \
-                                            <input id="form-issue-new-topic" type="text" class="form-control" placeholder="New Issue type topic" /> \
+                                            <input id="form-issue-new-topic" type="text" class="form-control" placeholder="New Issue type topic" value="' + topicName + '" /> \
                                         </div> \
                                     </div> \
                                 </div> \

@@ -20,12 +20,16 @@
             <div class="row">
 
                 <div class="col-lg-12">
-                    <h1 class="page-header">Tickets</h1>
+                    <h2 class="page-header">Tickets</h2>
                 </div>
 
                 <g:if test="${ !tickets }">
 
-                    <h1>There are not any pending tickets</h1>
+                    <div class="row"></div>
+                    <div class="alert alert-danger">
+                        <i class="fa fa-exclamation" aria-hidden="true"></i>
+                        There are not any pending tickets</h1>
+                    </div>
 
                 </g:if>
                 <g:else>
@@ -45,7 +49,7 @@
                                     <g:set var="isIssue" value="${ ticket instanceof app.Issue }" />
 
                                     <li class="${ isLeft ?: 'timeline-inverted' }">
-                                        <div class="timeline-badge ${ isIssue ? 'warning' : 'primary' }"><i class="fa fa-${ isIssue ? 'bomb' : 'save' }"></i>
+                                        <div class="timeline-badge ${ isIssue ? 'warning' : 'primary' }"><i class="fa fa-${ isIssue ? 'fa fa-exclamation-triangle' : 'fa fa-desktop' }"></i>
                                         </div>
                                         <div class="timeline-panel">
                                             <div class="timeline-heading">

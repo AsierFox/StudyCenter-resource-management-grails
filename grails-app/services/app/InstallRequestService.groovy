@@ -14,7 +14,7 @@ class InstallRequestService {
     def technicalService
     def softwareService
 
-    def sendInstallRequest(data) throws InstallRequestException, SoftwareRequerimentException {
+    def sendInstallRequest(user, data) throws InstallRequestException, SoftwareRequerimentException {
         String computerIpAddress = data.get('computer[ipAddress]')
 
         // Get the computer
@@ -35,29 +35,57 @@ class InstallRequestService {
         // Check Software requirements for the Software
         softwareService.checkSoftwareRequirementsForComputer(requestedSoftware, computer)
 
+        boolean isTechnical = true
+        InstallRequest installResquest
         Technical technical = technicalService.getLessTicket()
         if (!technical) {
-            throw new InstallRequestException('Could not find any technical available')
+            installResquest = new InstallRequest(
+                subject: data.get('request[subject]'),
+                description: data.get('request[description]'),
+                date: new Date(),
+                status: PENDING,
+                user: user,
+                computer: computer,
+                reqSoftware: requestedSoftware
+            );
+            isTechnical = false
+        }
+        else {
+            installResquest = new InstallRequest(
+                subject: data.get('request[subject]'),
+                description: data.get('request[description]'),
+                date: new Date(),
+                status: PENDING,
+                user: user,
+                computer: computer,
+                technical: technical,
+                reqSoftware: requestedSoftware
+            );
         }
 
-        // Save the Install Request Ticket
-        InstallRequest installResquest = new InstallRequest(
-            subject: data.get('request[subject]'),
-            description: data.get('request[description]'),
-            date: new Date(),
-            status: PENDING,
-            computer: computer,
-            technical: technical,
-            reqSoftware: requestedSoftware
-        );
+
         if (!installResquest.save(flush: true)) {
             throw new InstallRequestException('Error sending the Software request')
         }
 
-        // Increment the number of Tickets of the chose Technical
-        technicalService.incrementNumberTickets(technical)
+        if (isTechnical) {
+            // Increment the number of Tickets of the chose Technical
+            technicalService.incrementNumberTickets(technical)
 
-        System.out.println('Install Request sent to ' + technical.username)
+            System.out.println('Install Request sent to ' + technical.username)
+        }
+        else {
+            // Increment the amount of tickects of all technicals
+            technicalService.getAllTechicals().each {
+                technicalService.incrementNumberTickets(it)
+            }
+            // add tichet to study center
+            StudyCenter studyCenter = StudyCenter.get(1)
+            studyCenter.commonTickets.add(installResquest)
+            studyCenter.save(flush: true)
+
+            System.out.println('Install Request sent to all technicals.')
+        }
     }
 
     /** Returns the Install Request by the passed Id */

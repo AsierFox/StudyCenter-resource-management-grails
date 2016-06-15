@@ -18,8 +18,8 @@ class UrlMappings {
             "/tickets/$action?/$id?(.$format)?"(controller: 'ticket')
         }
 
-        "404"(view: '/error/notFound')
-        "405"(view: '/error/notFound')
+        "404"(view: '/error/404')
+        "405"(view: '/error/404')
         "500"(view: '/error/error')
 
         "/test"(controller: 'test')

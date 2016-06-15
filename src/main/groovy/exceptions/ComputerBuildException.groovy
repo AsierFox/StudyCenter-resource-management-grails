@@ -1,10 +1,10 @@
 package src.groovy.exceptions
 
-class ComputerBuildException extends Exception {
+class ComputerMoveException extends Exception {
 
     String errorMsg
 
-    public ComputerBuildException(String error) {
+    public ComputerMoveException(String error) {
         errorMsg = error
     }
 

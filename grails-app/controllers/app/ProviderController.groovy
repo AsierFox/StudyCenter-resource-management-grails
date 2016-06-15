@@ -6,7 +6,10 @@ class ProviderController {
 
     static defaultAction = 'index'
 
-    static allowedMethods = [getAllProviders: 'POST']
+    static allowedMethods = [
+        getAllProviders: 'POST',
+        getProviderOffer: 'POST'
+    ]
 
     def index() {
         render(view: 'showProviders')
@@ -17,6 +20,13 @@ class ProviderController {
         request.offers = providerService.getAllProviderOffers(providerName)
         render(view: 'providerOffers')
     }
+
+    def getProviderOffer() {
+        render(contentType: 'text/json') {
+            providerService.getProviderOffer(params.providerName, params.offerRef)
+        }
+    }
+
 
     def getAllProviders() {
         render(contentType: 'text/json') {

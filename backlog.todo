@@ -1,78 +1,17 @@
-NEXT (DOING ALL WITH User, then controll roles):
-    ☐ CRUD Issue Type.
-    ☐ Edit computer components (Check at remove the Hadware that not affects to Software).
-    ☐ Remove Classroom computer, all components to the Stock and check the tickets.
-    ☐ Ticket management for Technicals.
-    ☐ Stock CRUD.
-    ☐ Add available field to stock.
-    ☐ Generate the PDF with providers offers.
-    ☐ Technicals also can modify the components of computers.
-    ☐ Send email at change the tickets.
-    ☐ Validate IP address at creating the computer, validate repeated computer NAME or IP.
-    ☐ CHECK there are not Technicals available at sending tickets!
-    ☐ Add state of SOLVING to Tickets (?).
-    ☐ Create classroom.
+NEXT:
+    ☐ Delete users.
+    ☐ Pagination of allUsers, angular (http://plnkr.co/edit/79yrgwiwvan3bAG5SnKx?p=preview).
+    ☐ Delete computer, check error.
+    ☐ Filter sections for specific roles (With interceptors and conditions for menu).
+    ☐ All users ommit the sessioned user when it is admin.
+    ☐ Meter datos reales.
 
 
-TODO:
-    ☐ Pagination of allUsers, angular.
-    ☐ Change sign-up for Proffesors only.
-    ☐ PC to Stock, retrieving all the PC components to the stock (Review users associated to it)-
-    ☐ Improve View computer modal.
-    ☐ Improve User sign up, and only for Profesors.
-    ☐ Input placeholders.
-    ☐ Fix computer card for 'md' screens.
-    ☐ Cambiar iconos menu y de los tickets.
-    ☐ Get computer classroom.
-    ☐ Controll if there are not Technicals at deleting the last one.
-    ☐ Icon in flash errors at formularies.
-    ☐ Filter for sections of specific roles.
-    ☐ Use of Terms.
-    ☐ Modify user rol (remove computer association to a computer if not user).
-    ☐ Delete user (if technical, pass all its Tickets to the MainClass).
-    ☐ Encrypt the user passwords.
-    ☐ 404 and 500 error pages (web_templates/miminium-master-admin-panel).
-    ☐ Network card Hardware.
+Presentation:
+    ☐ Manejo de Hardware, sistemas operativos.
+    ☐ La estructura MongoDB JSON se adapta al modelo de clases.
+    ☐ Access to http://localhost:8080/app/user/all-users
 
 
-NOTES:
-    Get session locale:
-        ${session.'org.springframework.web.servlet.i18n.SessionLocaleResolver.LOCALE'}
-
-
-JSON Providers:
-{
-  "providers": [
-    {
-      "name": "pcomponents",
-      "title": "PC Components",
-      "logo": "default-img.png",
-      "description": "Shop of computer components",
-      "offers": [
-        {
-          "ref": "42323",
-          "name": "NVIDIA GTX 680",
-          "brand": "nvidia",
-          "description": "Modern graphic card for hard gamming.",
-          "specs": {
-            "over clock": 6800,
-            "resolution": "1270x720"
-          },
-          "price": 280.72,
-          "category": ["computer-components", "graphic-card"]
-        },
-        {
-          "ref": "54434",
-          "name": "G. Skill RipJaws",
-          "brand": "g-skill",
-          "description": "Modern graphic card for hard gamming.",
-          "specs": {
-            "capacity": 3
-          },
-          "price": 36.20,
-          "category": ["computer-components", "ram"]
-        }
-      ]
-    }
-  ]
-}
+Documentación:
+    ☐ Añadir responsive, Mobile first technique.

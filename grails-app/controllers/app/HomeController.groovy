@@ -7,19 +7,17 @@ class HomeController {
     static boolean isSeed = false
 
     def seedService
+    def mailService
 
     static defaultAction = 'index'
 
     def index() {
+
         if ( !isSeed ) {
             seedService.seed()
             isSeed = true
             redirect(action: defaultAction)
         }
-    }
 
-    def info() {
-        render(view: '/index')
     }
-
 }

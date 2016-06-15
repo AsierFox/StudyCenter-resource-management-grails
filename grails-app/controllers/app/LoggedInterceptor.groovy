@@ -6,7 +6,6 @@ class LoggedInterceptor {
         matchAll()
             .excludes(controller: 'home')
             .excludes(controller: 'user', action: 'login')
-            .excludes(controller: 'user', action: 'signUp')
             .excludes(controller: 'classroom', action: 'getAllClassrooms')
             .excludes(controller: 'classroom', action: 'getClassroomComputers')
     }
@@ -24,6 +23,7 @@ class LoggedInterceptor {
 
     boolean after() {
         def user = session.user
+
         request.isAdmin = user instanceof app.Administrator
         request.isTechnical = user instanceof app.Technical && !request.isAdmin
         request.isUser = user instanceof app.User && !request.isTechnical && !request.isAdmin

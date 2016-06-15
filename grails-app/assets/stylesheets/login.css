@@ -1,9 +1,9 @@
 body {
-    background-image: url(bg/login-bg.jpg);
+    background-color: #F3F3F3;
 }
 
 img {
-    margin: auto auto;
+    margin: auto;
 }
 
 .login-container {

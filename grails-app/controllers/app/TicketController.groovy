@@ -5,6 +5,8 @@ import src.groovy.exceptions.TicketException
 class TicketController {
 
     def ticketService
+    def technicalService
+    def mailService
 
     static defaultAction = 'index'
 
@@ -12,12 +14,17 @@ class TicketController {
         solveInstallRequest: 'POST',
         solveIssue: 'POST',
         cancelInstallRequest: 'POST',
-        cancelIssue: 'POST',
+        cancelIssue: 'POST'
     ]
 
     def index() {
         request.tickets = ticketService.getAllPendingTicketsOrderedByDate(session.user)
         render(view: 'pendingTimeline')
+    }
+
+    def technicalRanking() {
+        request.technicals = technicalService.getTechnicalRanking()
+        render(view: 'technicalRanking')
     }
 
     def installRequest() {
@@ -27,6 +34,7 @@ class TicketController {
         request.solvedTickets = allTickets.solvedTickets
         request.pendingTickets = allTickets.pendingTickets
         request.canceledTickets = allTickets.canceledTickets
+        request.notTickets = !allTickets.solvedTickets && !allTickets.pendingTickets && !allTickets.canceledTickets
         render(view: 'tickets')
     }
 
@@ -37,6 +45,7 @@ class TicketController {
         request.solvedTickets = allTickets.solvedTickets
         request.pendingTickets = allTickets.pendingTickets
         request.canceledTickets = allTickets.canceledTickets
+        request.notTickets = !allTickets.solvedTickets && !allTickets.pendingTickets && !allTickets.canceledTickets
         render(view: 'tickets')
     }
 
@@ -45,6 +54,12 @@ class TicketController {
         String error = ''
         try {
             ticketService.solveTicket(params.ticketId)
+
+            Technical technical = Technical.get(session.user.id)
+            technical.solvedTickets++
+            technical.save(flush: true)
+
+            mailService.sendMail(technical, Ticket.get(params.ticketId), 'solved')
         } catch(TicketException | Exception err) {
             success = false
             error = err.getMessage()
@@ -61,6 +76,15 @@ class TicketController {
         String error = ''
         try {
             ticketService.cancelTicket(params.ticketId)
+
+            Technical technical
+            if (params.solveToCancel) {
+                technical = Technical.get(session.user.id)
+                technical.solvedTickets--
+                technical.save(flush: true)
+            }
+
+            mailService.sendMail(technical, Ticket.get(params.ticketId), 'canceled')
         } catch(TicketException | Exception err) {
             success = false
             error = err.getMessage()

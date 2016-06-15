@@ -17,7 +17,7 @@ class NotifyIssueController {
         boolean success = true
         String errorMsg = ''
         try {
-            notifyIssueService.sendIssue(params)
+            notifyIssueService.sendIssue(session.user, params)
         } catch(NotifyIssueException | Exception err) {
             success = false
             errorMsg = err.getMessage()

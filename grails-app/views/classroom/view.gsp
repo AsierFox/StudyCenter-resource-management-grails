@@ -16,15 +16,17 @@
             }
 
             .card-icon {
-                font-size: 100px;
+                font-size: 80px;
                 margin-top: 15px;
                 text-align: center;
                 width: 100%;
             }
 
-            .computer-card a.pull-right, .computer-card a.pull-left {
-                margin: 1px 5px;
-                font-size: 1.5em;
+            .actions a {
+                margin: 3px auto;
+                text-align: center;
+                font-size: 1.2em;
+                display: block;
             }
 
             .tab-content {
@@ -51,11 +53,10 @@
                 list-style: none;
             }
 
-            #modifyComputerModal ul {
+            #modifyComputerSoftwareModal ul, #modifyComputerHardwareModal ul {
                 padding: 0px;
                 min-height: 80px;
             }
-
 
         </style>
 
@@ -73,16 +74,34 @@
                     <ul class="pager">
                         <li class="previous"><a href="<g:createLink controller='classroom' />"><span aria-hidden="true">&larr;</span> Classrooms</a></li>
                     </ul>
-                    <h1 class="page-header">Computers of Classroom ${ classroom.number }</h1>
+                    <h2 class="page-header">Computers of Classroom ${ classroom.number }</h2>
                 </div>
-
                 <div class="row">
 
-                    <g:set var="isAdmin" value="${ session.user instanceof app.Administrator }" />
+                    <g:set var="user" value="${ session.user }" />
+                    <g:set var="isUser" value="${ session.user.isUser() }" />
+                    <g:set var="isTechnical" value="${ session.user.isTechnical() }" />
+                    <g:set var="isAdmin" value="${ session.user.isAdmin() }" />
+
+                    <g:if test="${ user.isTechnical() || user.isAdmin() }">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <a style="margin-left:15px;" href="<g:createLink controller='computer' action='createComputer' />"><button class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Create computer</button></a>
+                            </div>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </div>
+
+                    </g:if>
 
                     <g:if test="${ !computers }">
 
-                        <h4 class="error-msg">There are no computers in this class.</h4>
+                        <div class="row"></div>
+                        <div class="col-md-12">
+                            <div class="alert alert-danger">
+                                <h4 class="error-msg"><i class="fa fa-exclamation" aria-hidden="true"></i> There are no computers in this class.</h4>
+                            </div>
+                        </div>
 
                     </g:if>
                     <g:else>
@@ -94,13 +113,47 @@
                             <!-- Computer Card -->
                             <div class="col-md-3 computer-card">
                                 <div class="thumbnail">
-                                    <a onclick="viewComputer('${ computer.ipAddress }')" class="pull-left"><i class="fa fa-eye">EYE</i></a>
+                                    <g:if test="${ isUser }">
+                                        <g:if test="${ session.user.computer.ipAddress.equals(computer.ipAddress) }">
 
-                                    <g:if test="${ isTechnical || isAdmin }">
+                                            <button onclick="installRequest('${ computer.ipAddress }');" class="btn btn-success" role="button">Install request</button>
 
-                                        <a onclick="modifyComputer('${ computer.ipAddress }')" class="pull-right"><i class="fa fa-pencil">EDIT</i></a>
-
+                                        </g:if>
                                     </g:if>
+                                    <g:else>
+
+                                        <button onclick="installRequest('${ computer.ipAddress }');" class="btn btn-success" role="button">Install request</button>
+
+                                    </g:else>
+
+                                    <g:if test="${ isUser }">
+                                        <g:if test="${ isUserClassroom }">
+
+                                            <button onclick="notifyIssue('${ computer.ipAddress }');" class="btn btn-warning" role="button">Notify issue</button>
+
+                                        </g:if>
+                                    </g:if>
+                                    <g:else>
+
+                                        <button onclick="notifyIssue('${ computer.ipAddress }');" class="btn btn-warning" role="button">Notify issue</button>
+
+                                    </g:else>
+
+                                    <div class="actions">
+
+                                        <a onclick="viewComputer('${ computer.ipAddress }', '${ computer.operatingSystem.name }', '${ computer.fileSystem.name }', '${ isTechnical ? true : false }')"><i class="fa fa-eye"> View</i></a>
+
+                                        <g:if test="${ isTechnical || isAdmin }">
+
+                                            <a onclick="modifyComputerSoftware('${ computer.ipAddress }')"><i class="fa fa-pencil"> Edit Software</i></a>
+                                            <a onclick="modifyComputerHardware('${ computer.ipAddress }')"><i class="fa fa-pencil"> Edit Hardware</i></a>
+                                            <a onclick="moveComputer('${ computer.ipAddress }', ${ classroom.floor }, ${ classroom.number })"><i class="fa fa-retweet"> Move computer</i></a>
+                                            <a onclick="formatComputer('${ computer.name }')"><i class="fa fa-eraser"> Format</i></a>
+                                            <a onclick="deleteComputer('${ computer.ipAddress }')"><i class="fa fa-trash"> Delete</i></a>
+
+                                        </g:if>
+
+                                    </div>
 
                                     <i class="fa fa-desktop card-icon"></i>
                                     <div class="caption">
@@ -160,16 +213,18 @@
                                                     <a class="list-group-item">
                                                         <center><b><u>Installed Software</u></b></center>
                                                     </a>
+                                                    <g:if test="${ !computer.getSoftware() }">
+                                                        <a class="list-group-item">
+                                                            <center><small>No software installed</small></center>
+                                                        </a>
+                                                    </g:if>
                                                     <g:each in="${ computer.getSoftware() }" var="software" >
                                                         <a class="list-group-item">
-                                                            ${ software.name }
+                                                            <center>${ software.name }</center>
                                                         </a>
                                                     </g:each>
                                                 </div>
                                             </div>
-
-                                            <button onclick="installRequest('${ computer.ipAddress }');" class="btn btn-success" role="button">Install request</button>
-                                            <button onclick="notifyIssue('${ computer.ipAddress }');" class="btn btn-warning" role="button">Notify issue</button>
                                         </div>
                                     </div>
                                 </div>
@@ -183,7 +238,9 @@
 
                         <!-- Action modals -->
                         <div id="viewComputerModal" class="modal fade" tabindex="-1" role="dialog"></div>
-                        <div id="modifyComputerModal" class="modal fade" tabindex="-1" role="dialog"></div>
+                        <div id="modifyComputerSoftwareModal" class="modal fade" tabindex="-1" role="dialog"></div>
+                        <div id="modifyComputerHardwareModal" class="modal fade" tabindex="-1" role="dialog"></div>
+                        <div id="moveComputerModal" class="modal fade" tabindex="-1" role="dialog"></div>
                         <div id="installRequestModal" class="modal fade" tabindex="-1" role="dialog"></div>
                         <div id="notifyIssueModal" class="modal fade" tabindex="-1" role="dialog"></div>
                         <!-- ! Action modals -->
@@ -205,5 +262,8 @@
     <asset:javascript src="form-data-helper" />
     <asset:javascript src="computer-request-issue" />
     <asset:javascript src="computer-view-edit" />
+    <asset:javascript src="move-computer" />
+    <asset:javascript src="format-computer" />
+    <asset:javascript src="delete-computer" />
 </body>
 </html>

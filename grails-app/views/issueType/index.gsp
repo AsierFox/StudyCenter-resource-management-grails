@@ -27,6 +27,10 @@
                 font-size: 25px;
             }
 
+            #modifyIssueTypeModal > .col-md-6 {
+                width: 100%;
+            }
+
             .fa-trash {
                 color: #EF5350;
             }
@@ -44,7 +48,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Issue types</h1>
+                    <h2 class="page-header">Issue types</h2>
                 </div>
 
                 <div class="row">
@@ -79,7 +83,9 @@
 
                 <g:if test="${ !issueTypes }">
 
+                    <div class="alert alert-danger">
                         <h2>There are not issue types created.</h2>
+                    </div>
 
                 </g:if>
                 <g:else>
@@ -97,23 +103,21 @@
                                 </thead>
                                 <tbody>
 
-                                <g:each in="${ issueTypes }" var="issueType">
+                                    <g:each in="${ issueTypes }" var="issueType">
 
-                                    <tr>
-                                        <td>${ issueType.topic }</td>
-                                        <td><a onclick="showModifyIssueModal('${ issueType.topic }')"><i class="fa fa-pencil-square" aria-hidden="true"></i></a></td>
-                                        <td><a><i onclick="removeIssueType(${ issueType.id }, '${ issueType.topic }')" class="fa fa-trash" aria-hidden="true"></i></a></td>
-                                    </tr>
+                                        <tr>
+                                            <td>${ issueType.topic }</td>
+                                            <td><a onclick="showModifyIssueModal('${ issueType.topic }')"><i class="fa fa-pencil-square" aria-hidden="true"></i></a></td>
+                                            <td><a><i onclick="removeIssueType(${ issueType.id }, '${ issueType.topic }')" class="fa fa-trash" aria-hidden="true"></i></a></td>
+                                        </tr>
 
-                                </g:each>
+                                    </g:each>
 
                                 </tbody>
                             </table>
 
                             <div id="modifyIssueTypeModal" class="modal fade" tabindex="-1" role="dialog">
-
                         </div>
-
                     </div>
 
                 </g:else>

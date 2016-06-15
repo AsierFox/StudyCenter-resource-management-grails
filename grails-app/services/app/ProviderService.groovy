@@ -14,7 +14,7 @@ class ProviderService {
     private static MongoClient sMongoClient
     private static final String host = 'localhost'
     private static final int port = 27017
-    private static final String databaseName = 'test'
+    private static final String databaseName = 'grails'
     private static final String providersCollectionName = 'providers'
 
     def createConnection() {
@@ -33,24 +33,49 @@ class ProviderService {
             @Override
             public void apply(final Document document) {
                 document.providers.each {
-                    it.offers.each { offers.add(it) }
+                    if (it.name.equals(provider)) {
+                        it.offers.each { offers.add(it) }
+                    }
                 }
             }
         })
         offers
     }
 
-    def getProviders() {
+    def getProviderOffer(providerName, offerRef) {
         MongoDatabase db = createConnection().getDatabase(databaseName)
         FindIterable<Document> it = db.getCollection(providersCollectionName).find()
-        Collection providers = []
+        Collection offer = []
 
         it.forEach(new Block<Document>() {
             @Override
             public void apply(final Document document) {
-                document.providers.each { providers.add(it) }
+                document.providers.each {
+                    if (it.name.equals(providerName)) {
+                        it.offers.each {
+                            if (it.ref.equals(offerRef)) {
+                                offer.add(it)
+                                return offer
+                            }
+                        }
+                    }
+                }
             }
         })
-        providers
+        return offer
+    }
+
+    def getProviders() {
+        MongoDatabase db = createConnection().getDatabase(databaseName)
+        FindIterable<Document> it = db.getCollection(providersCollectionName).find()
+        Document result
+
+        it.forEach(new Block<Document>() {
+            @Override
+            public void apply(final Document document) {
+                result = document
+            }
+        })
+        result
     }
 }

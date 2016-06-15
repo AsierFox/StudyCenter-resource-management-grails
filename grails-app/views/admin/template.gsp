@@ -5,8 +5,8 @@
 
         <title>Admin panel</title>
 
-        <asset:stylesheet src="metis-menu.css"/>
-        <asset:stylesheet src="sb-admin-2.css"/>
+        <asset:stylesheet src="metis-menu" />
+        <asset:stylesheet src="sb-admin-2" />
     </head>
 <body>
 
@@ -18,7 +18,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Admin template</h1>
+                    <h2 class="page-header">Admin template</h2>
                 </div>
 
                 <!-->Content</!-->
@@ -33,7 +33,7 @@
     <!-- Script -->
     <asset:javascript src="jquery.min.js" />
     <asset:javascript src="bootstrap.min.js" />
-    <asset:javascript src="metisMenu.js" />
-    <asset:javascript src="sb-admin-2.js" />
+    <asset:javascript src="metisMenu" />
+    <asset:javascript src="sb-admin-2" />
 </body>
 </html>

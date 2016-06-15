@@ -7,6 +7,7 @@ class Ticket {
     Date date
     Status status
 
+    User user
     Computer computer
     Technical technical
 
@@ -17,7 +18,9 @@ class Ticket {
     }
 
     static constraints = {
+        user(nullable: false)
         computer(nullable: false)
-        technical(nullable: false)
+        // Common tickets  does not have technicals associated
+        technical(nullable: true)
     }
 }

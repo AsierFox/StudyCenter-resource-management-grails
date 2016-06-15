@@ -63,12 +63,12 @@ class TicketService {
     }
 
     /** Returns all the tickets of a technical. */
-    def getAllTickets(Technical technical) {
+    def getAllTechnicalTickets(Technical technical) {
         Ticket.findAllByTechnical(technical).sort { it.date }.reverse(true)
     }
 
     /** Returns all Pending Tickets of a Technical. */
-    def getAllPendingTickets(Technical technical) {
+    def getAllTechnicalPendingTickets(Technical technical) {
         Ticket.findAllByTechnicalAndStatus(technical, PENDING).sort { it.date }.reverse(true)
     }
 
@@ -76,22 +76,28 @@ class TicketService {
         Ticket.findAllByTechnicalAndStatus(technical, SOLVED).sort { it.date }.reverse(true)
     }
 
-    def getAllCanceledTickets(Technical technical) {
+    def getAllTechnicalCanceledTickets(Technical technical) {
         Ticket.findAllByTechnicalAndStatus(technical, CANCELED).sort { it.date }.reverse(true)
     }
 
     /** Returns all the install requests tickets of a technical. */
     def getAllInstallRequestTickets(Technical technical) {
-        Ticket.findAllByTechnicalAndClass(technical, InstallRequest.class).sort { it.date }.reverse(true)
+        Collection requests = Ticket.findAllByTechnicalAndClass(technical, InstallRequest.class)
+        requests += StudyCenter.get(1).commonTickets.findAll { it.class == InstallRequest }
+        requests.sort { it.date }.reverse(true)
     }
 
     /** Returns all the issue notification tickets of a technical. */
     def getAllIssueNotificationTickets(Technical technical) {
-        Ticket.findAllByTechnicalAndClass(technical, Issue.class).sort { it.date }.reverse(true)
+        Collection issues = Ticket.findAllByTechnicalAndClass(technical, Issue.class)
+        issues += StudyCenter.get(1).commonTickets.findAll { it.class == Issue }
+        issues.sort { it.date }.reverse(true)
     }
 
     /** Returns all the Pending tickets of a technical ordered by date. */
     def getAllPendingTicketsOrderedByDate(Technical technical) {
-        Ticket.findAllByTechnicalAndStatus(technical, PENDING).sort { it.date }.reverse(true)
+        Collection issues = Ticket.findAllByTechnicalAndStatus(technical, PENDING)
+        issues += StudyCenter.get(1).commonTickets.findAll { it.class == Issue }
+        issues.sort { it.date }.reverse(true)
     }
 }

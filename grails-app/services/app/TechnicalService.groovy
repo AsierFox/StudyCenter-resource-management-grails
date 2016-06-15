@@ -15,6 +15,18 @@ class TechnicalService {
         .find(sort: 'numberTickets', order: 'asc')
     }
 
+    def getTechnicalRanking() {
+        Technical.createCriteria()
+            .list(max: 10) {
+                eq "class", Technical.class
+                order "numberTickets", "desc"
+            }
+    }
+
+    def getAllTechicals() {
+        Technical.findAllByClass(Technical.class)
+    }
+
     /**
      * Increments the number of Tickets of the Technical.
      */

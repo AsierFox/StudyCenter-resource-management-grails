@@ -27,7 +27,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">All users</h1>
+                    <h2 class="page-header">All users</h2>
                 </div>
 
                     <div class="panel-body">
@@ -35,21 +35,9 @@
                             <div ng-controller="searchController" id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <div class="dataTables_length" id="dataTables-example_length">
-                                            <label>Show
-                                            <select name="dataTables-example_length" aria-controls="dataTables-example" class="form-control input-sm">
-                                                <option value="10">10</option>
-                                                <option value="25">25</option>
-                                                <option value="50">50</option>
-                                                <option value="100">100</option>
-                                            </select>
-                                             entries</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
                                         <div id="dataTables-example_filter" class="dataTables_filter">
                                             <div class="input-group">
-                                                <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+                                                <div class="input-group-addon"><i class="fa fa-search"></i></div>
                                                 <input ng-model="username" ng-change="searchUserByUsername()" type="search" class="form-control input-sm" placeholder="Username" aria-controls="dataTables-example">
                                             </div>
                                         </div>
@@ -68,6 +56,7 @@
                                                     <th class="sorting" ng-click="sortType = 'username'; sortOrder = !sortOrder">Username</th>
                                                     <th class="sorting" ng-click="sortType = 'email'; sortOrder = !sortOrder">E-mail</th>
                                                     <th class="sorting" ng-click="sortType = 'class'; sortOrder = !sortOrder">User type</th>
+                                                    <th>Modify</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -78,28 +67,10 @@
                                                     <td>{{ user.username }}</td>
                                                     <td>{{ user.email }}</td>
                                                     <td>{{ user.class }}</td>
+                                                    <td><center><a href="<g:createLink controller='user' action='modify' />/{{ user.id }}"><i class="fa fa-pencil-square" aria-hidden="true"></i></a></center></td>
                                                 </tr>
                                             </tbody>
                                         </table>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">Showing 1 to 10 of {{ users.length }} entries</div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
-                                            <ul class="pagination">
-                                                <li class="paginate_button previous disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a href="#">Previous</a></li>
-                                                <li class="paginate_button active" aria-controls="dataTables-example" tabindex="0"><a href="#">1</a></li>
-                                                <li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">2</a></li>
-                                                <li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">3</a></li>
-                                                <li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">4</a></li>
-                                                <li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">5</a></li>
-                                                <li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">6</a></li>
-                                                <li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a href="#">Next</a></li>
-                                            </ul>
-                                        </div>
                                     </div>
                                 </div>
                             </div>

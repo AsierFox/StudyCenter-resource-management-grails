@@ -8,6 +8,15 @@
         <asset:stylesheet src="metis-menu.css"/>
         <asset:stylesheet src="sb-admin-2.css"/>
         <asset:stylesheet src="sweet-alert" />
+
+        <style>
+
+            .actions form {
+                float: left;
+                margin-left: 5px;
+            }
+
+        </style>
     </head>
 <body>
 
@@ -20,198 +29,226 @@
             <div class="row">
 
                 <div class="col-lg-12">
-                    <h1 class="page-header">${ title }</h1>
+                    <h2 class="page-header">${ title }</h2>
                 </div>
 
-                <div class="row">
+                <g:if test="${ notTickets }">
 
-                    <g:set var="count" value="${ 0 }" />
+                    <div class="row"></div>
+                    <div class="alert alert-danger">
+                        <i class="fa fa-exclamation" aria-hidden="true"></i>
+                        There are no ${ title }
+                    </div>
 
-                    <div class="col-lg-4">
-                        <div class="panel panel-default">
+                </g:if>
+                <g:else>
 
-                            <div class="panel-heading" style="background:#F4511E;font-weight:bold;color:white">
-                                Pending Tickets
-                            </div>
+                    <div class="row">
 
-                            <div class="panel-body">
-                                <div class="panel-group" id="accordion">
+                        <g:set var="count" value="${ 0 }" />
 
-                                    <g:each in="${ pendingTickets }" var="ticket">
+                        <div class="col-lg-4">
+                            <div class="panel panel-default">
 
-                                    <!-- !/ Content -->
+                                <div class="panel-heading" style="background:#F4511E;font-weight:bold;color:white">
+                                    Pending Tickets
+                                </div>
 
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse${ count }">Subject: ${ ticket.subject } &nbsp;<small><b>date:</b> ${ ticket.date }</small></a>
-                                                </h4>
-                                            </div>
-                                            <div id="collapse${ count }" class="panel-collapse collapse">
-                                                <div class="panel-body">
+                                <div class="panel-body">
+                                    <div class="panel-group" id="accordion">
 
-                                                    <h5>Status: ${ ticket.status }</h5>
+                                        <g:each in="${ pendingTickets }" var="ticket">
 
-                                                    <h5>Description: ${ ticket.description }</h5>
+                                        <!-- !/ Content -->
 
-                                                    <h5>PC: ${ ticket.computer.name }</h5>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse${ count }"><b>Subject:</b> ${ ticket.subject }<small><br><b>date:</b> ${ ticket.date }</small></a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapse${ count }" class="panel-collapse collapse">
+                                                    <div class="panel-body">
 
-                                                    <g:if test="${ isInstallRequest }">
+                                                        <b><u>Status:</u></b>
+                                                        <h5> ${ ticket.status }</h5>
 
-                                                        <h5>Software: ${ ticket.reqSoftware.name }</h5>
+                                                        <b><u>Description:</u></b>
+                                                        <h5> ${ ticket.description }</h5>
 
-                                                    </g:if>
-                                                    <g:else>
+                                                        <h5>PC: ${ ticket.computer.name }</h5>
 
-                                                        <h5>Remarks: ${ ticket.remarks }</h5>
+                                                        <g:if test="${ isInstallRequest }">
 
-                                                        <h5>Type: ${ ticket.type.topic }</h5>
+                                                            <b><u>Software:</u></b>
+                                                            <h5> ${ ticket.reqSoftware.name }</h5>
 
-                                                    </g:else>
+                                                        </g:if>
+                                                        <g:else>
 
-                                    <!-- !/ Content -->
+                                                            <b><u>Remarks:</u></b>
+                                                            <h5> ${ ticket.remarks }</h5>
 
-                                                    <div class="row">
-                                                        <g:form onsubmit="return cancelTicket(${ ticket.id }, '${ ticket.subject }')" action="${ isInstallRequest ? 'cancelInstallRequest' : 'cancelIssue' }">
-                                                            <input type="hidden" id="ticketId" value="${ ticket.id }">
-                                                            <button type="submit" class="btn btn-default btn-circle btn-lg"><i class="fa fa-times"></i></button>
-                                                        </g:form>
-                                                        <g:form onsubmit="return solveTicket(${ ticket.id }, '${ ticket.subject }')" action="${ isInstallRequest ? 'solveInstallRequest' : 'solveIssue' }">
-                                                            <input type="hidden" id="ticketId" value="${ ticket.id }">
-                                                            <button type="submit" class="btn btn-default btn-circle btn-lg"><i class="fa fa-check"></i></button>
-                                                        </g:form>
+                                                            <b><u>Type:</u></b>
+                                                            <h5> ${ ticket.type.topic }</h5>
+
+                                                        </g:else>
+
+                                        <!-- !/ Content -->
+
+                                                        <div class="row actions">
+                                                            <g:form onsubmit="return cancelTicket(${ ticket.id }, '${ ticket.subject }')" action="${ isInstallRequest ? 'cancelInstallRequest' : 'cancelIssue' }">
+                                                                <input type="hidden" id="ticketId" value="${ ticket.id }">
+                                                                <button type="submit" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-times"></i></button>
+                                                            </g:form>
+                                                            <g:form onsubmit="return solveTicket(${ ticket.id }, '${ ticket.subject }')" action="${ isInstallRequest ? 'solveInstallRequest' : 'solveIssue' }">
+                                                                <input type="hidden" id="ticketId" value="${ ticket.id }">
+                                                                <button type="submit" class="btn btn-success btn-circle btn-lg"><i class="fa fa-check"></i></button>
+                                                            </g:form>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                    <g:set var="count" value="${ count + 1 }" />
+                                        <g:set var="count" value="${ count + 1 }" />
 
-                                    </g:each>
+                                        </g:each>
 
+                                    </div>
                                 </div>
+
                             </div>
 
                         </div>
 
-                    </div>
+                        <div class="col-lg-4">
+                            <div class="panel panel-primary">
 
-                    <div class="col-lg-4">
-                        <div class="panel panel-primary">
+                                <div class="panel-heading" style="font-weight:bold;color:white">
+                                    Solved tickets
+                                </div>
 
-                            <div class="panel-heading" style="font-weight:bold;color:white">
-                                Solved tickets
-                            </div>
+                                <div class="panel-body">
+                                    <div class="panel-group" id="accordion">
 
-                            <div class="panel-body">
-                                <div class="panel-group" id="accordion">
+                                        <g:each in="${ solvedTickets }" var="ticket">
 
-                                    <g:each in="${ solvedTickets }" var="ticket">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse${ count }"><b>Subject:</b> ${ ticket.subject }<br><small><b>date:</b> ${ ticket.date }</small></a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapse${ count }" class="panel-collapse collapse">
+                                                    <div class="panel-body">
 
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse${ count }">Subject: ${ ticket.subject } &nbsp;<small><b>date:</b> ${ ticket.date }</small></a>
-                                                </h4>
-                                            </div>
-                                            <div id="collapse${ count }" class="panel-collapse collapse">
-                                                <div class="panel-body">
+                                                        <b><u>Status:</u></b>
+                                                        <h5> ${ ticket.status }</h5>
 
-                                                    <h5>Status: ${ ticket.status }</h5>
+                                                        <b><u>Description:</u></b>
+                                                        <h5> ${ ticket.description }</h5>
 
-                                                    <h5>Description: ${ ticket.description }</h5>
+                                                        <g:if test="${ isInstallRequest }">
 
-                                                    <g:if test="${ isInstallRequest }">
+                                                            <b><u>Software:</u></b>
+                                                            <h5> ${ ticket.reqSoftware.name }</h5>
 
-                                                        <h5>Software: ${ ticket.reqSoftware.name }</h5>
+                                                        </g:if>
+                                                        <g:else>
 
-                                                    </g:if>
-                                                    <g:else>
+                                                            <b><u>Remarks:</u></b>
+                                                            <h5> ${ ticket.remarks }</h5>
 
-                                                        <h5>Remarks: ${ ticket.remarks }</h5>
+                                                            <b><u>Type:</u></b>
+                                                            <h5> ${ ticket.type.topic }</h5>
 
-                                                        <h5>Type: ${ ticket.type.topic }</h5>
+                                                        </g:else>
 
-                                                    </g:else>
-
-                                                    <div class="row">
-                                                        <g:form onsubmit="return cancelTicket(${ ticket.id }, '${ ticket.subject }')" action="${ isInstallRequest ? 'cancelInstallRequest' : 'cancelIssue' }">
-                                                            <input type="hidden" id="ticketId" value="${ ticket.id }">
-                                                            <button type="submit" class="btn btn-default btn-circle btn-lg"><i class="fa fa-times"></i></button>
-                                                        </g:form>
+                                                        <div class="row">
+                                                            <g:form onsubmit="return cancelTicket(${ ticket.id }, '${ ticket.subject }', true)" action="${ isInstallRequest ? 'cancelInstallRequest' : 'cancelIssue' }">
+                                                                <input type="hidden" id="ticketId" value="${ ticket.id }">
+                                                                <button type="submit" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-times"></i></button>
+                                                            </g:form>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                    <g:set var="count" value="${ count + 1 }" />
-                                    </g:each>
+                                        <g:set var="count" value="${ count + 1 }" />
+                                        </g:each>
 
+                                    </div>
                                 </div>
+
                             </div>
 
                         </div>
 
-                    </div>
 
+                        <div class="col-lg-4">
+                            <div class="panel panel-default">
 
-                    <div class="col-lg-4">
-                        <div class="panel panel-default">
+                                <div class="panel-heading" style="background:#d50000;font-weight:bold;color:white">
+                                    Canceled Tickets
+                                </div>
 
-                            <div class="panel-heading" style="background:#d50000;font-weight:bold;color:white">
-                                Canceled Tickets
-                            </div>
+                                <div class="panel-body">
+                                    <div class="panel-group" id="accordion">
 
-                            <div class="panel-body">
-                                <div class="panel-group" id="accordion">
+                                        <g:each in="${ canceledTickets }" var="ticket">
 
-                                    <g:each in="${ canceledTickets }" var="ticket">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse${ count }"><b>Subject:</b> ${ ticket.subject }<br><small><b>date:</b> ${ ticket.date }</small></a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapse${ count }" class="panel-collapse collapse">
+                                                    <div class="panel-body">
 
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse${ count }">Subject: ${ ticket.subject } &nbsp;<small><b>date:</b> ${ ticket.date }</small></a>
-                                                </h4>
-                                            </div>
-                                            <div id="collapse${ count }" class="panel-collapse collapse">
-                                                <div class="panel-body">
+                                                        <b><u>Status:</u></b>
+                                                        <h5> ${ ticket.status }</h5>
 
-                                                    <h5>Status: ${ ticket.status }</h5>
+                                                        <h5> ${ ticket.description }</h5>
 
-                                                    <h5>Description: ${ ticket.description }</h5>
+                                                        <g:if test="${ isInstallRequest }">
 
-                                                    <g:if test="${ isInstallRequest }">
+                                                            <b><u>Software:</u></b>
+                                                            <h5> ${ ticket.reqSoftware.name }</h5>
 
-                                                        <h5>Software: ${ ticket.reqSoftware.name }</h5>
+                                                        </g:if>
+                                                        <g:else>
 
-                                                    </g:if>
-                                                    <g:else>
+                                                            <b><u>Remarks:</u></b>
+                                                            <h5> ${ ticket.remarks }</h5>
 
-                                                        <h5>Remarks: ${ ticket.remarks }</h5>
+                                                            <b><u>Type:</u></b>
+                                                            <h5> ${ ticket.type.topic }</h5>
 
-                                                        <h5>Type: ${ ticket.type.topic }</h5>
+                                                        </g:else>
 
-                                                    </g:else>
-
-                                                    <div class="row">
-                                                        <g:form onsubmit="return solveTicket(${ ticket.id }, '${ ticket.subject }')" action="${ isInstallRequest ? 'solveInstallRequest' : 'solveIssue' }">
-                                                            <input type="hidden" id="ticketId" value="${ ticket.id }">
-                                                            <button type="submit" class="btn btn-default btn-circle btn-lg"><i class="fa fa-check"></i></button>
-                                                        </g:form>
+                                                        <div class="row">
+                                                            <g:form onsubmit="return solveTicket(${ ticket.id }, '${ ticket.subject }')" action="${ isInstallRequest ? 'solveInstallRequest' : 'solveIssue' }">
+                                                                <input type="hidden" id="ticketId" value="${ ticket.id }">
+                                                                <button type="submit" class="btn btn-success btn-circle btn-lg"><i class="fa fa-check"></i></button>
+                                                            </g:form>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                    <g:set var="count" value="${ count + 1 }" />
-                                    </g:each>
+                                        <g:set var="count" value="${ count + 1 }" />
+                                        </g:each>
 
+                                    </div>
                                 </div>
-                            </div>
 
+                            </div>
                         </div>
                     </div>
-                </div>
+
+                </g:else>
+
             </div>
         </div>
         <!-- /#page-wrapper -->

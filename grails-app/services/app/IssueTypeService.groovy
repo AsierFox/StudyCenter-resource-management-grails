@@ -29,8 +29,11 @@ class IssueTypeService {
     def deleteIssueType(issueTypeId) throws IssueTypeException {
         try {
             IssueType issueType = IssueType.get(issueTypeId)
+            if (Issue.findByType(issueType)) {
+                throw new IssueTypeException('There are already issue notifications with the issue type ' + issueType.topic)
+            }
             issueType.delete(flush: true)
-        } catch (DataIntegrityViolationException | Exception err) {
+        } catch (DataIntegrityViolationException err) {
             throw new IssueTypeException('The issue type could not be deleted')
         }
     }

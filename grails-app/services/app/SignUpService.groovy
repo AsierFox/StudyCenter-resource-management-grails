@@ -11,12 +11,14 @@ class SignUpService {
 
     /** Sign ups an User to the app. */
     def signUpUser(data) throws SignUpUserException {
-        Computer computer = computerService.getComputerByIpAddress(data.get('form-computer'))
+        String classroomId = data.get('form-classroom')
+        String computerIpAddress = data.get('form-computer')
 
-        String avatar = data.get('form-avatar')
-        if (!avatar) {
-            avatar = User.DEFAULT_AVATAR
+        if (classroomId.isEmpty() || computerIpAddress.isEmpty() || computerIpAddress.equals('whatever')) {
+            throw new SignUpUserException('The user must have a computer assigned.')
         }
+
+        Computer computer = Computer.findByIpAddress(computerIpAddress)
 
         User user = new User(
             dni: data.get('form-dni'),
@@ -25,20 +27,12 @@ class SignUpService {
             email: data.get('form-email'),
             name: data.get('form-first-name'),
             surname: data.get('form-last-name'),
-            avatar: avatar,
             computer: computer
         );
 
-        if (!user.validate()) {
-            user.errors.allErrors.each {
-                System.out.println(it)
-            }
-            throw new SignUpUserException()
-        }
+        user.save(flush: true)
 
-        if (!user.save(flush: true)) {
-            throw new SignUpUserException()
-        }
+        user
     }
 
 }

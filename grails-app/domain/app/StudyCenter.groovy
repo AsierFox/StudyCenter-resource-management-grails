@@ -10,12 +10,15 @@ class StudyCenter {
     Stock stock
 
     Collection classrooms
+    Collection commonTickets
 
-    static hasMany = [classrooms: Classroom]
+    static hasMany = [
+        classrooms: Classroom,
+        commonTickets: Ticket
+    ]
 
     static constraints = {
         nif(unique: true)
         name(unique: true)
     }
-
 }

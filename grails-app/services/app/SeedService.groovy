@@ -10,7 +10,10 @@ class SeedService {
 
     boolean showErrors = true
 
+    StudyCenter studyCenter
     Stock stock
+    Technical technicalIban
+    IssueType issueTypeOther
 
     Map computers
     Map departaments
@@ -38,6 +41,8 @@ class SeedService {
         seedDepartaments()
         seedStaffUsers()
         seedIssueTypes()
+
+        seedStudyCenter()
     }
 
     def saveAllComponents() {
@@ -287,6 +292,13 @@ class SeedService {
                 clockSpeed: 7206,
                 resolution: "1080x720")
         );
+        new GraphicCard(
+            ref: "2345",
+            name: "ASUS Card",
+            ramSize: 16,
+            clockSpeed: 9000,
+            resolution: "750x480"
+        ).save(flush: true)
     }
 
     def seedComputers() {
@@ -307,23 +319,15 @@ class SeedService {
                 fileSystem: components.get('NTFS'),
                 components: tempComponents)
         );
-        /*
+
         computers.put("172.16.16.160",
             new Computer(
                 ipAddress: "172.16.16.160",
-                name: "PC 12",
+                name: "PC 36",
+                operatingSystem: components.get('MACLion'),
+                fileSystem: components.get('B-Tree'),
                 components: tempComponents)
         );
-        computers.put("172.16.16.100",
-            new Computer(
-                ipAddress: "172.16.16.100",
-                name: "PC 34",
-                ram: 4,
-                storage: 600.5,
-                operatingSystem: os.get('mac'),
-                fileSystem: fileSystems.get('ntfs'))
-        );
-        */
 
         computers.each { k, v ->
             v.save(flush: true, failOnError: showErrors)
@@ -350,19 +354,22 @@ class SeedService {
 
     def seedStaffUsers() {
         staff = []
-        staff.add(
-            new Technical(
-                dni: "23889067I",
-                username: "iban",
-                password: "asier",
-                email: "iban@gmail.com",
-                name: "Iban",
-                surname: "Nolose",
-                avatar: "default-avatar.png",
-                available: true,
-                numberTickets: 0,
-                departament: departaments.get('programming'))
-        );
+
+        technicalIban = new Technical(
+            dni: "23889067I",
+            username: "iban",
+            password: "asier",
+            email: "iban@gmail.com",
+            name: "Iban",
+            surname: "Nolose",
+            avatar: "default-avatar.png",
+            available: false,
+            numberTickets: 0,
+            departament: departaments.get('programming')
+        )
+
+        staff.add(technicalIban);
+
         staff.add(
             new Technical(
                 dni: "23821333B",
@@ -372,7 +379,7 @@ class SeedService {
                 name: "Iban2",
                 surname: "Nolose2",
                 avatar: "default-avatar.png",
-                available: true,
+                available: false,
                 numberTickets: 0,
                 departament: departaments.get('programming'))
         );
@@ -400,10 +407,42 @@ class SeedService {
         issueTypes.add(new IssueType(topic: 'Processor'))
         issueTypes.add(new IssueType(topic: 'Software'))
         issueTypes.add(new IssueType(topic: 'Network card'))
+        issueTypeOther = new IssueType(topic: 'Other')
+        issueTypes.add(issueTypeOther)
 
         issueTypes.each {
             it.save(flush: true, failOnError: showErrors)
         }
     }
 
+
+    def seedStudyCenter() {
+        Collection commonTickets = []
+/*
+        Issue issue = new Issue(
+            subject: 'Common issue',
+            description: 'This isssue is only for testing purposes.',
+            date: new Date(),
+            status: Ticket.Status.PENDING,
+            user: users[0],
+            computer: computers.get('172.16.16.200'),
+            remarks: 'This issue is very testable!! xD',
+            type: issueTypeOther
+        );
+
+        issue.save(flush: true)
+
+        commonTickets.add(issue)
+*/
+        studyCenter = new StudyCenter(
+            nif: 666666,
+            name: 'Compufox',
+            address: 'Kawaii, Malawii 6',
+            website: 'devdream.es',
+            stock: stock,
+            commonTickets: commonTickets
+        )
+
+        studyCenter.save(flush: true)
+    }
 }

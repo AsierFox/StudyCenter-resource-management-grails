@@ -9,6 +9,10 @@ body {
     overflow-x: hidden;
 }
 
+textarea {
+    resize: vertical;
+}
+
 #wrapper {
     width: 100%;
 }
@@ -26,6 +30,10 @@ body {
         padding: 0 30px;
         border-left: 1px solid #e7e7e7;
     }
+}
+
+.navbar-brand {
+    margin-top: -15px;
 }
 
 .navbar-top-links {

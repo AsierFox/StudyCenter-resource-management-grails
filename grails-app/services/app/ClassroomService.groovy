@@ -1,7 +1,10 @@
 package app
 
 import grails.transaction.Transactional
+
 import src.groovy.exceptions.ClassroomNotFoundException
+import src.groovy.exceptions.CreateClassroomException
+import src.groovy.exceptions.DeleteClassroomException
 
 @Transactional
 class ClassroomService {
@@ -23,7 +26,11 @@ class ClassroomService {
 
     /** Returns the Classroom with the number passed by parameter. */
     def getClassroomByNumber(number) {
-        Classroom.findByNumber(number)
+        Classroom classroom = Classroom.findByNumber(number)
+        if (!classroom) {
+            throw new ClassroomNotFoundException()
+        }
+        classroom
     }
 
     /**
@@ -37,4 +44,37 @@ class ClassroomService {
         return classroom.computers
     }
 
+    def createClassroom(data) throws CreateClassroomException {
+
+        List floorClassrooms = Classroom.findAllByFloor(data.floor)
+
+        floorClassrooms.each {
+            if (it.number == Integer.parseInt(data.number)) {
+                throw new CreateClassroomException('There is already a classroom with that number in the floor ' + data.floor)
+            }
+        }
+
+        Classroom classroom = new Classroom(
+            number: data.number,
+            floor: data.floor,
+            maxCapacity: data.maxCapacity,
+            description: data.description
+        )
+
+        classroom.save(flush: true)
+
+        classroom
+    }
+
+    def deleteClassroom(number) {
+        Classroom classroom = Classroom.findByNumber(number)
+
+        if (classroom.computers.size() > 0) {
+            throw new DeleteClassroomException("The classroom has computers installed")
+        }
+
+        classroom.delete()
+
+        true
+    }
 }

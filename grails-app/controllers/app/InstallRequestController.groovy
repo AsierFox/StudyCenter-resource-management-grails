@@ -13,7 +13,7 @@ class InstallRequestController {
         boolean success = true
         String errorMsg = ''
         try {
-            installRequestService.sendInstallRequest(params)
+            installRequestService.sendInstallRequest(session.user, params)
         } catch(InstallRequestException | SoftwareRequerimentException | Exception err) {
             success = false
             errorMsg = err.getMessage()

@@ -1,6 +1,8 @@
 package app
 
 import src.groovy.exceptions.ComputerBuildException
+import src.groovy.exceptions.ComputerMoveException
+import src.groovy.exceptions.ComputerDeleteException
 
 class ComputerController {
 
@@ -12,8 +14,23 @@ class ComputerController {
         getComputerNameByIpAddress: 'POST',
         getAllSoftware: 'POST',
         getAllSoftwareWithinOSFS: 'POST',
-        getComputerComponentsByIpAddress: 'POST'
+        getComputerComponentsByIpAddress: 'POST',
+        getUsersOfComputer: 'POST',
+        getComputerSoftwareByIpAddress: 'POST',
+        getComputerHardwareByIpAddress: 'POST',
+        formatComputer: 'POST'
     ]
+
+    def createComputer() {
+        render(view: 'createComputer')
+    }
+
+    def formatComputer() {
+        computerService.formatComputer(params)
+        render(contentType: 'text/json') {[
+            success: true
+        ]}
+    }
 
     def createNewComputer() {
         boolean success = true
@@ -28,6 +45,42 @@ class ComputerController {
             success: success,
             error: error
         ]}
+    }
+
+    def moveComputer() {
+        boolean success = true
+        String error = ''
+        try {
+            computerService.moveComputer(params.ipAddress, params.oldClassroomNumber, params.classroomNumber)
+        } catch (ComputerMoveException err) {
+            success = false
+            error = err.getMessage()
+        }
+        render(contentType: 'text/json') {[
+            success: success,
+            error: error
+        ]}
+    }
+
+    def deleteComputer() {
+        boolean success = true
+        String error = ''
+        try {
+            computerService.deleteComputer(params.ipAddress)
+        } catch (ComputerDeleteException err) {
+            success = false
+            error = err.getMessage()
+        }
+        render(contentType: 'text/json') {[
+            success: success,
+            error: error
+        ]}
+    }
+
+    def getComputerUsers() {
+        render(contentType: 'text/json') {
+            computerService.getComputerUsers(Computer.findByIpAddress(params.ipAddress))
+        }
     }
 
     def getComputerByIpAddress() {
@@ -68,7 +121,19 @@ class ComputerController {
 
     def getComputerComponentsByIpAddress() {
         render(contentType: 'text/json') {
+            computerService.getAllComputerComponentsByIpAddress(params.ipAddress)
+        }
+    }
+
+    def getComputerSoftwareByIpAddress() {
+        render(contentType: 'text/json') {
             computerService.getAllComputerSoftwareByIpAddress(params.ipAddress)
+        }
+    }
+
+    def getComputerHardwareByIpAddress() {
+        render(contentType: 'text/json') {
+            computerService.getAllComputerHardwareByIpAddress(params.ipAddress)
         }
     }
 }

@@ -1,4 +1,10 @@
 
+(function() {
+    fillSelectClassRooms('select-class');
+    fillSelectOSFS('select-os', 'os');
+    fillSelectOSFS('select-fs', 'fs');
+})();
+
 /**
  * Gets all the File System and Operating System types.
  */
@@ -24,19 +30,6 @@ function fillSelectOSFS(selectId, type) {
             }
         }
     });
-};
-
-/**
- * Create the computer function.
- */
-function createComputer() {
-    var modal = $('#createComputerModal');
-
-    fillSelectClassRooms('select-class');
-    fillSelectOSFS('select-os', 'os');
-    fillSelectOSFS('select-fs', 'fs');
-
-    modal.modal('show');
 };
 
 /**
@@ -84,7 +77,7 @@ function createNewComputer(url) {
                 return;
             }
             sweetAlert('Software Request sended', 'The computer was created for classroom ' + classroomNumber, 'success');
-            $('.modal').modal('hide');
+            document.location = document.location.pathname;
         });
         req.fail(function(err) {
             sweetAlert('Error in computer creation', 'Error creating the computer', 'error');

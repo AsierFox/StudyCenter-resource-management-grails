@@ -18,7 +18,7 @@ function showError(err) {
     sweetAlert('Error making the request', err ? err : 'The requested operation could not be resolved.', 'error');
 }
 
-function cancelTicket(ticketId, ticketSubject) {
+function cancelTicket(ticketId, ticketSubject, solveToCancel) {
     var requestURL = 'cancelTicket';
 
     swal({
@@ -31,7 +31,7 @@ function cancelTicket(ticketId, ticketSubject) {
     }, function() {
         var req = $.post({
             url: requestURL,
-            data: { "ticketId": ticketId },
+            data: { "ticketId": ticketId, "solveToCancel": solveToCancel },
             dataType: "json"
         });
         req.done(function(data) {

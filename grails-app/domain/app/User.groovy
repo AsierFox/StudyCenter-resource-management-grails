@@ -12,7 +12,6 @@ class User {
     String email
     String name
     String surname
-    String avatar
 
     Computer computer
 
@@ -21,7 +20,6 @@ class User {
         username(unique: true, blank: false)
         password(password: true, blank: false)
         email(unique: true, email: true, blank: false)
-        avatar(defaultValue: 'default-avatar.png')
         computer(nullable: true)
     }
 
@@ -37,11 +35,15 @@ class User {
         "User".equals(getClass().getSimpleName())
     }
 
+    def isProfesor() {
+        "Profesor".equals(getClass().getSimpleName())
+    }
+
     def isTechnical() {
         "Technical".equals(getClass().getSimpleName())
     }
 
-    def isAdministrator() {
+    def isAdmin() {
         "Administrator".equals(getClass().getSimpleName())
     }
 

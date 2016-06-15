@@ -16,7 +16,7 @@
 
             <div class="col-md-4 col-md-offset-4 login-container">
 
-                <g:img class="img-responsive" dir="images" file="wales/uw-logo.png" />
+                <a href="/"><g:img class="img-responsive" dir="images" file="logo/uw-logo.png" /></a>
 
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
@@ -27,7 +27,7 @@
 
                         <g:if test="${ flash.errorMsg }">
                             <div class="alert alert-danger" role="alert">
-                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                <span class="fa fa-exclamation" aria-hidden="true"></span>
                                 <span class="sr-only">Error:</span>
                                 ${ flash.errorMsg }
                             </div>
@@ -42,7 +42,6 @@
                                     <input class="form-control" placeholder="Password" name="password" type="password" value="">
                                 </div>
                                 <button type="submit" class="btn btn-lg btn-primary btn-block">Login</button>
-                                <a href="<g:createLink controller='user' action='sign-up' />" class="btn btn-lg btn-success btn-block">Sign-up</a>
                             </fieldset>
                         </g:form>
 

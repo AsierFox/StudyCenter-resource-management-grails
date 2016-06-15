@@ -50,6 +50,81 @@
             ul li {
                 list-style: none;
             }
+            .profile-usertitle {
+              text-align: center;
+              margin-top: 20px;
+            }
+
+            .profile-usertitle-name {
+              color: #5a7391;
+              font-size: 16px;
+              font-weight: 600;
+              margin-bottom: 7px;
+            }
+
+            .profile-usertitle-job {
+              text-transform: uppercase;
+              color: #5b9bd1;
+              font-size: 12px;
+              font-weight: 600;
+              margin-bottom: 15px;
+            }
+
+            .profile-userbuttons {
+              text-align: center;
+              margin-top: 10px;
+            }
+
+            .profile-userbuttons .btn {
+              text-transform: uppercase;
+              font-size: 11px;
+              font-weight: 600;
+              padding: 6px 15px;
+              margin-right: 5px;
+            }
+
+            .profile-userbuttons .btn:last-child {
+              margin-right: 0px;
+            }
+
+            .profile-usermenu {
+              margin-top: 30px;
+            }
+
+            .profile-usermenu ul li {
+              border-bottom: 1px solid #f0f4f7;
+            }
+
+            .profile-usermenu ul li:last-child {
+              border-bottom: none;
+            }
+
+            .profile-usermenu ul li a {
+              color: #93a3b5;
+              font-size: 14px;
+              font-weight: 400;
+            }
+
+            .profile-usermenu ul li a i {
+              margin-right: 8px;
+              font-size: 14px;
+            }
+
+            .profile-usermenu ul li a:hover {
+              background-color: #fafcfd;
+              color: #5b9bd1;
+            }
+
+            .profile-usermenu ul li.active {
+              border-bottom: none;
+            }
+
+            .profile-usermenu ul li.active a {
+              color: #5b9bd1;
+              background-color: #f6f9fb;
+              border-left: 2px solid #5b9bd1;
+              margin-left: -2px;
+            }
 
         </style>
     </head>
@@ -62,113 +137,66 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Dashboard</h1>
+                    <h2 class="page-header">Profile</h2>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-comments fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">26</div>
-                                    <div>New Comments!</div>
-                                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="profile-usertitle">
+                            <div class="profile-usertitle-name">
+                                ${ user.name }
+                            </div>
+                            <div class="profile-usertitle-job">
+                                ${ user.class.getSimpleName() }
                             </div>
                         </div>
-                        <a href="#">
-                            <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-green">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-tasks fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">12</div>
-                                    <div>New Tasks!</div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="#">
-                            <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
+
+                <div class="row">
+                    <div class="profile-content col-md-5">
+
+                        <h3>Account information</h3>
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr>
+                                    <th>DNI:</th>
+                                    <td>${ user.dni }</td>
+                                </tr>
+                                <tr>
+                                    <th>E-mail:</th>
+                                    <td>${ user.email }</td>
+                                </tr>
+                                <tr>
+                                    <th>Name:</th>
+                                    <td>${ user.name }</td>
+                                </tr>
+                                <tr>
+                                    <th>Surname</th>
+                                    <td>${ user.surname }</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-yellow">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-shopping-cart fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">124</div>
-                                    <div>New Orders!</div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="#">
-                            <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-red">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-support fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">13</div>
-                                    <div>Support Tickets!</div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="#">
-                            <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+
             </div>
 
             <!-- User Computer -->
-
             <g:if test="${ session.user.isUser() }">
 
                 <div class="row">
 
-                    <h2>Get Classroom name</h2>
+                    <h3>Associated computer</h3>
 
                     <!-- Computer Card -->
                     <div class="col-md-3 computer-card">
                         <div class="thumbnail">
-                            <a onclick="viewComputer('${ userComputer.ipAddress }')" class="pull-left"><i class="fa fa-eye">EYE</i></a>
+                            <button onclick="installRequest('${ userComputer.ipAddress }');" class="btn btn-success" role="button">Install request</button>
+                            <button onclick="notifyIssue('${ userComputer.ipAddress }');" class="btn btn-warning" role="button">Notify issue</button>
+
+                            <a onclick="viewComputer('${ userComputer.ipAddress }')" class="pull-left"><i class="fa fa-eye"></i> View computer</a>
 
                             <i class="fa fa-desktop card-icon"></i>
                             <div class="caption">
@@ -236,8 +264,6 @@
                                         </div>
                                     </div>
 
-                                    <button onclick="installRequest('${ userComputer.ipAddress }');" class="btn btn-success" role="button">Install request</button>
-                                    <button onclick="notifyIssue('${ userComputer.ipAddress }');" class="btn btn-warning" role="button">Notify issue</button>
                                 </div>
                             </div>
                         </div>
@@ -265,9 +291,9 @@
     <asset:javascript src="bootstrap.min.js" />
     <asset:javascript src="metisMenu.js" />
     <asset:javascript src="sb-admin-2.js" />
+    <asset:javascript src="sweet-alert" />
     <asset:javascript src="form-data-helper" />
     <asset:javascript src="computer-request-issue" />
     <asset:javascript src="computer-view-edit" />
-    <asset:javascript src="sweet-alert" />
 </body>
 </html>
