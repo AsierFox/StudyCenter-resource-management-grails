@@ -12,9 +12,9 @@ import com.mongodb.client.FindIterable
 @Transactional
 class ProviderService {
     private static MongoClient sMongoClient
-    private static final String host = 'localhost'
-    private static final int port = 27017
-    private static final String databaseName = 'grails'
+    private static final String host = 'sanluisnet.redirectme.net'
+    private static final int port = 57019
+    private static final String databaseName = 'compufox'
     private static final String providersCollectionName = 'providers'
 
     def createConnection() {
