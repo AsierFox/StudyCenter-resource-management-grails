@@ -1,1 +1,1 @@
-web: cd build ; java $JAVA_OPTS -Dgrails.env=prod -jar ../build/server/webapp-runner-*.jar --expand-war --port $PORT libs/*.war
+web: java $JAVA_OPTS -jar server/jetty-runner.jar --port $PORT target/*.war
