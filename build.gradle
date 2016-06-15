@@ -74,7 +74,7 @@ dependencies {
     console "org.grails:grails-console"
 
     // My dependencies
-    compile "org.grails.plugins:standalone:9.0.0.M4"
+    compile "org.grails.plugins:jetty-standalone:0.2"
     runtime "mysql:mysql-connector-java:5.1.16"
     compile "org.mongodb:mongodb-driver:3.2.2"
     compile "javax.mail:mail:1.4.4"
