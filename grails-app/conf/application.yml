@@ -89,13 +89,13 @@ dataSource:
     jmxExport: true
     driverClassName: com.mysql.jdbc.Driver
     username: root
-    password: rootasier
+    password: m0ng0r00t
 
 environments:
     development:
         dataSource: &developmentDataSource
             dbCreate: create-drop
-            url: jdbc:mysql://localhost:3306/testgrails
+            url: jdbc:mysql://sanluisnet.redirectme.net:57020/compufox_grails
     test:
         dataSource:
             <<: *developmentDataSource
