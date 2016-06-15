@@ -76,7 +76,7 @@ dependencies {
     // My dependencies
     runtime "mysql:mysql-connector-java:5.1.16"
     compile "org.mongodb:mongodb-driver:3.2.2"
-    compile "javax.mail:javaxmail:1.0"
+    compile "mail:javax.mail-api:1.4.4"
 }
 
 task wrapper(type: Wrapper) {
